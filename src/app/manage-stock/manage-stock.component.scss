@@ -1,0 +1,29 @@
+.flexbox-container{
+    display: flex;
+}
+
+.flexbox-item1 {
+    flex-grow: 1;
+}
+
+img {
+    cursor: pointer;
+    height: 100px;
+    width: calc(100/4);
+}
+
+.upload-btn {
+    width: 100%;
+    margin: 0 2% 2% 0;
+}
+
+.upload-file {
+    margin-bottom: 3%;
+    font-weight: lighter;
+    font-family: monospace;
+}
+
+.icon {
+    transform: scale(1);
+    padding-top: 2%;
+}

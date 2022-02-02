@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyBOKJ2MkIINjxImlvPrkgvl30ExIEQG-Jg",
+  authDomain: "pockets-mens-wear.firebaseapp.com",
+  projectId: "pockets-mens-wear",
+  storageBucket: "pockets-mens-wear.appspot.com",
+  messagingSenderId: "754576245652",
+  appId: "1:754576245652:web:090e1a8dd7a9b836228581",
+  measurementId: "G-1BPF7PBKB4"
+
+  }
 };
 
 /*
@@ -14,3 +24,26 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+
+
+// Import the functions you need from the SDKs you need
+// import { initializeApp } from "firebase/app";
+// import { getAnalytics } from "firebase/analytics";
+// // TODO: Add SDKs for Firebase products that you want to use
+// // https://firebase.google.com/docs/web/setup#available-libraries
+
+// // Your web app's Firebase configuration
+// // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// const firebaseConfig = {
+//   apiKey: "AIzaSyBOKJ2MkIINjxImlvPrkgvl30ExIEQG-Jg",
+//   authDomain: "pockets-mens-wear.firebaseapp.com",
+//   projectId: "pockets-mens-wear",
+//   storageBucket: "pockets-mens-wear.appspot.com",
+//   messagingSenderId: "754576245652",
+//   appId: "1:754576245652:web:090e1a8dd7a9b836228581",
+//   measurementId: "G-1BPF7PBKB4"
+// };
+
+// // Initialize Firebase
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);

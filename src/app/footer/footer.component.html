@@ -1,0 +1,5 @@
+<div class="footer">
+    <button mat-flat-button class="none fullWidth" (click)="backClicked()">{{cancel}}</button>
+    <button mat-flat-button color="primary" class="fullWidth" (click)="submitClicked()"
+        [disabled]="!valid">{{submit}}</button>
+</div>

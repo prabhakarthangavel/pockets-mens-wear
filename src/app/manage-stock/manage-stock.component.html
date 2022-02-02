@@ -1,0 +1,72 @@
+<div class="margin">
+  <h2>Create New Stock</h2>
+  <!-- <mat-label>Upload Images</mat-label>
+  <div class="flexbox-container">
+    <div class="flex-item1">
+      <img src="../../assets/upload.jpg">
+      <img src="../../assets/upload.jpg">
+      <img src="../../assets/upload.jpg">
+    </div> 
+  </div> -->
+
+<div>
+  <button (click)="fileInput.click()" mat-flat-button color="primary" class="upload-btn">
+    <mat-label>Upload Images</mat-label>
+    <input #fileInput type="file" multiple="multiple" accept=".jpg,.jpeg,.png" (change)="selectFile($event)" style="display:none;" />
+  </button>
+  <div *ngFor="let file of files" class="upload-file">
+    <mat-icon class="icon">delete</mat-icon><label>{{file.name}}</label><span>{{percentage}}</span>
+  </div>
+</div>
+
+  <form [formGroup]="stockForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Name of the Product</mat-label>
+      <input matInput placeholder="Enter Name" formControlName="name">
+    </mat-form-field>
+    <!-- <div class="errors" *ngIf="description.touched && description.invalid">
+        <div *ngIf="description.errors.required">Description is Required</div>
+        <div *ngIf="description.errors.maxlength">Description should not be more than 3500 characters</div>
+      </div> -->
+
+    <mat-form-field appearance="outline">
+      <mat-label>Select Category</mat-label>
+      <mat-select formControlName="category" id="category">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{category}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <div class="errors" *ngIf="section.touched && section.invalid">
+      <div *ngIf="section.errors.required">Section is Required</div>
+    </div> -->
+
+    <mat-form-field appearance="outline">
+      <mat-label>Actual Price</mat-label>
+      <input matInput placeholder="Enter Actual Price" formControlName="actualPrice">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Discounted Price</mat-label>
+      <input matInput placeholder="Enter Discounted Price" formControlName="discountedPrice">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <textarea matInput placeholder="Enter Description" formControlName="description" rows="10">
+       </textarea>
+    </mat-form-field>
+
+    <!-- <mat-form-field color="accent" appearance="outline">
+      <mat-label>Due Date</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="dueDate" id="dueDate">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 color="primary"></mat-datepicker>
+    </mat-form-field>
+    <div class="errors" *ngIf="dueDate.touched && dueDate.invalid">
+      <div *ngIf="dueDate.errors.required">Due date is Required</div>
+    </div>
+    <div class="errors" *ngIf="dateInvalid">Due date should not be past date</div> -->
+  </form>
+</div>
+
+<app-footer submit="Submit" cancel="Cancel" [valid]="true" (card)="submit()"></app-footer>
