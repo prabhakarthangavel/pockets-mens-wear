@@ -20,19 +20,19 @@ export class FileUploadService {
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, fileUpload.file);
 
-    // uploadTask.snapshotChanges().pipe(
-    //   finalize(() => {
-    //     storageRef.getDownloadURL().subscribe(downloadURL => {
-    //       fileUpload.url = downloadURL;
-    //       fileUpload.name = fileUpload.file.name;
-    //       this.saveFileData(fileUpload);
-    //     });
-    //   })
-    // ).subscribe();
-    const array = [10, 20, 100];
-    const result = from(array)
-    return result;
-    // return uploadTask.percentageChanges();
+    uploadTask.snapshotChanges().pipe(
+      finalize(() => {
+        storageRef.getDownloadURL().subscribe(downloadURL => {
+          fileUpload.url = downloadURL;
+          fileUpload.name = fileUpload.file.name;
+          this.saveFileData(fileUpload);
+        });
+      })
+    ).subscribe();
+    return uploadTask.percentageChanges();
+    // const array = [10, 20, 100];
+    // const result = from(array)
+    // return result;
   }
 
   private saveFileData(fileUpload: FileUpload): void {
@@ -56,7 +56,8 @@ export class FileUploadService {
     return this.db.list(this.basePath).remove(key);
   }
 
-  private deleteFileStorage(name: string): void {
+  public deleteFileStorage(name: string): void {
+    console.log(name)
     const storageRef = this.storage.ref(this.basePath);
     storageRef.child(name).delete();
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { FileUpload } from '../models/file-upload.model';
 import { FileUploadService } from '../shared/file-upload.service';
+import { FileStatus } from '../models/file-status.model';
 
 @Component({
   selector: 'app-manage-stock',
@@ -13,6 +14,8 @@ export class ManageStockComponent implements OnInit {
   public files: File[];
   public currentFileUpload: FileUpload;
   public percentage: number = 0;
+  public fileStatus: FileStatus[] = [];
+  public fileNames: string[] = [];
   public stockForm: FormGroup = this.fb.group({
     name: [''],
     category: [''],
@@ -31,28 +34,39 @@ export class ManageStockComponent implements OnInit {
   }
 
   selectFile(event: any): void {
+    console.log('file selected',event)
     this.selectedFiles = event.target.files;
     this.files = Array.from(this.selectedFiles);
-    console.log(this.selectedFiles)
-    this.upload();
+    this.files.forEach(file => {
+      this.fileNames.push(file.name);
+      this.upload(file);
+    })
   }
 
-  upload(): void {
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-
-      if (file) {
-        this.currentFileUpload = new FileUpload(file);
-        this._fileUploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-          percentage => {
-            this.percentage = Math.round(percentage ? percentage : 0);
-          },
-          error => {
-            console.log(error);
+  upload(file: File): void {
+    this.percentage = 0;
+    if (file) {
+      this.currentFileUpload = new FileUpload(file);
+      this._fileUploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+        percentage => {
+          this.percentage = Math.round(percentage ? percentage : 0);
+          if (percentage == 100)  {
+            const index = this.fileNames.indexOf(file.name);
+            this.fileNames.splice(index, 1);
+            this.fileStatus.push(new FileStatus(file, this.percentage));
           }
-        );
-      }
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
+  }
+
+  deleteFile(file: File, index: number): void {
+    this._fileUploadService.deleteFileStorage(file.name);
+    this.fileStatus.splice(index, 1);
+    console.log(file, index);
   }
 
 }
