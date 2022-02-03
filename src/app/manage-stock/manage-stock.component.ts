@@ -34,12 +34,15 @@ export class ManageStockComponent implements OnInit {
   }
 
   selectFile(event: any): void {
-    console.log('file selected',event)
     this.selectedFiles = event.target.files;
     this.files = Array.from(this.selectedFiles);
+    let i = 0;
     this.files.forEach(file => {
-      this.fileNames.push(file.name);
-      this.upload(file);
+      i++;
+      if (i <= 3) {
+        this.fileNames.push(file.name);
+        this.upload(file);
+      }
     })
   }
 
@@ -50,7 +53,7 @@ export class ManageStockComponent implements OnInit {
       this._fileUploadService.pushFileToStorage(this.currentFileUpload).subscribe(
         percentage => {
           this.percentage = Math.round(percentage ? percentage : 0);
-          if (percentage == 100)  {
+          if (percentage == 100) {
             const index = this.fileNames.indexOf(file.name);
             this.fileNames.splice(index, 1);
             this.fileStatus.push(new FileStatus(file, this.percentage));

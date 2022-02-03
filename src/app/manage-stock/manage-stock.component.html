@@ -11,7 +11,7 @@
 
 <div>
   <button (click)="fileInput.click()" mat-flat-button color="primary" class="upload-btn">
-    <mat-label>Upload Images</mat-label>
+    <mat-label>Upload Images (max 3 files)</mat-label>
     <input #fileInput type="file" multiple="multiple" accept=".jpg,.jpeg,.png" (change)="selectFile($event)" style="display:none;" />
   </button>
   <div *ngFor="let file of fileNames" class="upload-file">
