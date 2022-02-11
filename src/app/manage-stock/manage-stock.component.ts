@@ -3,13 +3,15 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { FileUpload } from '../models/file-upload.model';
 import { FileUploadService } from '../shared/file-upload.service';
 import { FileStatus } from '../models/file-status.model';
-
+import { Subscription } from 'rxjs';
+import { ManageStockService } from './manage-stock.service';
 @Component({
   selector: 'app-manage-stock',
   templateUrl: './manage-stock.component.html',
   styleUrls: ['./manage-stock.component.scss']
 })
 export class ManageStockComponent implements OnInit {
+  public subscription: Subscription;
   public selectedFiles: FileList;
   public files: File[];
   public currentFileUpload: FileUpload;
@@ -17,20 +19,25 @@ export class ManageStockComponent implements OnInit {
   public fileStatus: FileStatus[] = [];
   public fileNames: string[] = [];
   public stockForm: FormGroup = this.fb.group({
-    name: [''],
-    category: [''],
-    actualPrice: [''],
-    discountedPrice: [''],
+    name: ['', Validators.required],
+    category: ['', Validators.required],
+    actualPrice: ['', [Validators.required, Validators.pattern(/^-?(0|[1-9₹]\d*)?$/)]],
+    discountedPrice: ['', Validators.pattern(/^-?(0|[1-9₹]\d*)?$/)],
+    small: ['', Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+    medium: ['', Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+    large: ['', Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+    xlarge: ['', Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+    xxlarge: ['', Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
     description: ['']
   });
   public categories = ['Shirts', 'Jackets', 'Tshirts', 'Jeans', 'Casual Shoes', 'Sports Shoes', 'Sweatshirts', 'Kurtas', 'Trousers'];
-  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService) { }
+  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService) { }
 
   ngOnInit(): void {
   }
 
-  submit() {
-
+  get f() {
+    return this.stockForm.controls;
   }
 
   selectFile(event: any): void {
@@ -70,6 +77,50 @@ export class ManageStockComponent implements OnInit {
     this._fileUploadService.deleteFileStorage(file.name);
     this.fileStatus.splice(index, 1);
     console.log(file, index);
+  }
+
+  formValid(): boolean {
+    return this.stockForm.valid && (this.stockForm.controls.small.value != "" || this.stockForm.controls.medium.value != "" || this.stockForm.controls.large.value != "" ||
+      this.stockForm.controls.xlarge.value != "" || this.stockForm.controls.xxlarge.value != "");
+  }
+
+  submit(): void {
+    const stock = {
+      name: this.stockForm.value.name,
+      category: this.stockForm.value.category,
+      actualPrice: this.replaceINR(this.stockForm.value.actualPrice),
+      dicountedPrice: this.replaceINR(this.stockForm.value.discountedPrice),
+      description: this.stockForm.value.description,
+      sizes: {
+        small: this.stockForm.value.small,
+        medium: this.stockForm.value.medium,
+        large: this.stockForm.value.large,
+        xlarge: this.stockForm.value.xlarge,
+        xxlarge: this.stockForm.value.xxlarge
+      }
+    }
+    console.log(stock)
+    this.subscription = this._stockService.createStock(stock).subscribe(
+      response => {
+        console.log(response);
+        if (response && response.status == 200) {
+
+        }
+      })
+  }
+
+  replaceINR(value: string): string {
+    let index = value.indexOf('₹');
+    if (index > -1) {
+        return value.substring(0, index) + value.substring(index+1);
+    }
+    return value;
+  }
+
+  ngOnDestroy() {
+    if (this.subscription && !this.subscription.closed) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

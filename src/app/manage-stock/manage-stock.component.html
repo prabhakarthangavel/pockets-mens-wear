@@ -1,38 +1,30 @@
 <div class="margin">
   <h2>Create New Stock</h2>
-  <!-- <mat-label>Upload Images</mat-label>
-  <div class="flexbox-container">
-    <div class="flex-item1">
-      <img src="../../assets/upload.jpg">
-      <img src="../../assets/upload.jpg">
-      <img src="../../assets/upload.jpg">
-    </div> 
-  </div> -->
 
-<div>
-  <button (click)="fileInput.click()" mat-flat-button color="primary" class="upload-btn">
-    <mat-label>Upload Images (max 3 files)</mat-label>
-    <input #fileInput type="file" multiple="multiple" accept=".jpg,.jpeg,.png" (change)="selectFile($event)" style="display:none;" />
-  </button>
-  <div *ngFor="let file of fileNames" class="upload-file">
-    <label>{{file}}</label>
+  <div>
+    <button (click)="fileInput.click()" mat-flat-button color="primary" class="upload-btn">
+      <mat-label>Upload Images (max 3 files)</mat-label>
+      <input #fileInput type="file" multiple="multiple" accept=".jpg,.jpeg,.png" (change)="selectFile($event)"
+        style="display:none;" />
+    </button>
+    <div *ngFor="let file of fileNames" class="upload-file">
+      <label>{{file}}</label>
+    </div>
+    <div *ngFor="let file of fileStatus;let i = index" class="upload-file">
+      <mat-icon class="icon" *ngIf="file.percentage == 100" (click)="deleteFile(file.file, i)">delete</mat-icon>
+      <label>{{file.file.name}}</label>
+      <span *ngIf="file.percentage == 100"><img src="../../assets/green_tick.png"></span>
+    </div>
   </div>
-  <div *ngFor="let file of fileStatus;let i = index" class="upload-file">
-    <mat-icon class="icon" *ngIf="file.percentage == 100" (click)="deleteFile(file.file, i)">delete</mat-icon>
-    <label>{{file.file.name}}</label>
-    <span *ngIf="file.percentage == 100"><img src="../../assets/green_tick.png"></span>
-  </div>
-</div>
 
   <form [formGroup]="stockForm">
     <mat-form-field appearance="outline">
       <mat-label>Name of the Product</mat-label>
       <input matInput placeholder="Enter Name" formControlName="name">
     </mat-form-field>
-    <!-- <div class="errors" *ngIf="description.touched && description.invalid">
-        <div *ngIf="description.errors.required">Description is Required</div>
-        <div *ngIf="description.errors.maxlength">Description should not be more than 3500 characters</div>
-      </div> -->
+    <div class="errors" *ngIf="f.name.touched && f.name.invalid">
+      <div *ngIf="f.name.errors?.required">Name Required</div>
+    </div>
 
     <mat-form-field appearance="outline">
       <mat-label>Select Category</mat-label>
@@ -42,36 +34,68 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <!-- <div class="errors" *ngIf="section.touched && section.invalid">
-      <div *ngIf="section.errors.required">Section is Required</div>
-    </div> -->
+    <div class="errors" *ngIf="f.category.touched && f.category.invalid">
+      <div *ngIf="f.category.errors?.required">Category Required</div>
+    </div>
 
     <mat-form-field appearance="outline">
       <mat-label>Actual Price</mat-label>
-      <input matInput placeholder="Enter Actual Price" formControlName="actualPrice">
+      <input matInput placeholder="Enter Actual Price" formControlName="actualPrice" [value]="f.actualPrice.value | currency: 'INR' :'symbol': '1.0'">
     </mat-form-field>
+    <div class="errors" *ngIf="f.actualPrice.touched && f.actualPrice.invalid">
+      <div *ngIf="f.actualPrice.errors?.required">Actual Price Required</div>
+      <div *ngIf="f.actualPrice.errors?.pattern">Only Numbers Allowed</div>
+    </div>
 
     <mat-form-field appearance="outline">
       <mat-label>Discounted Price</mat-label>
-      <input matInput placeholder="Enter Discounted Price" formControlName="discountedPrice">
+      <input matInput placeholder="Enter Discounted Price" formControlName="discountedPrice"  [value]="f.discountedPrice.value | currency: 'INR' :'symbol': '1.0'">
     </mat-form-field>
+    <div class="errors" *ngIf="f.discountedPrice.touched && f.discountedPrice.invalid">
+      <div *ngIf="f.discountedPrice.errors?.pattern">Only Numbers Allowed</div>
+    </div>
+
+    <div class="flexbox-container">
+      <div class="flexbox-item1">
+        <mat-form-field appearance="outline">
+          <mat-label>Small</mat-label>
+          <input matInput placeholder="Enter Quantity" formControlName="small">
+        </mat-form-field>
+      </div>
+      <div class="flexbox-item1">
+        <mat-form-field appearance="outline">
+          <mat-label>Medium</mat-label>
+          <input matInput placeholder="Enter Quantity" formControlName="medium">
+        </mat-form-field>
+      </div>
+      <div class="flexbox-item1">
+        <mat-form-field appearance="outline">
+          <mat-label>Large</mat-label>
+          <input matInput placeholder="Enter Quantity" formControlName="large">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="flexbox-container">
+      <div class="flexbox-item1">
+        <mat-form-field appearance="outline">
+          <mat-label>XLarge</mat-label>
+          <input matInput placeholder="Enter Quantity" formControlName="xlarge">
+        </mat-form-field>
+      </div>
+      <div class="flexbox-item1">
+        <mat-form-field appearance="outline">
+          <mat-label>XXLarge</mat-label>
+          <input matInput placeholder="Enter Quantity" formControlName="xxlarge">
+        </mat-form-field>
+      </div>
+    </div>
 
     <mat-form-field appearance="outline">
       <textarea matInput placeholder="Enter Description" formControlName="description" rows="10">
        </textarea>
     </mat-form-field>
 
-    <!-- <mat-form-field color="accent" appearance="outline">
-      <mat-label>Due Date</mat-label>
-      <input matInput [matDatepicker]="picker2" formControlName="dueDate" id="dueDate">
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2 color="primary"></mat-datepicker>
-    </mat-form-field>
-    <div class="errors" *ngIf="dueDate.touched && dueDate.invalid">
-      <div *ngIf="dueDate.errors.required">Due date is Required</div>
-    </div>
-    <div class="errors" *ngIf="dateInvalid">Due date should not be past date</div> -->
   </form>
 </div>
 
-<app-footer submit="Submit" cancel="Cancel" [valid]="true" (card)="submit()"></app-footer>
+<app-footer submit="Submit" cancel="Cancel" [valid]="formValid()" (card)="submit()"></app-footer>

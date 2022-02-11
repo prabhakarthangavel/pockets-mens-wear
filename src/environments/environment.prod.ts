@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  baseUrl: 'https://pockets-mens-wear.herokuapp.com/',
   firebase: {
   apiKey: "AIzaSyBOKJ2MkIINjxImlvPrkgvl30ExIEQG-Jg",
   authDomain: "pockets-mens-wear.firebaseapp.com",

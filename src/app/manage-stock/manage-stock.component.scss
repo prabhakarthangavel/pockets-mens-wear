@@ -4,6 +4,8 @@
 
 .flexbox-item1 {
     flex-grow: 1;
+    width: calc(100px / 3);
+    margin-right: 3%;
 }
 
 img {

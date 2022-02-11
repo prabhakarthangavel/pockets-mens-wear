@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  baseUrl: 'http://localhost:8080/',
   firebase: {
     apiKey: "AIzaSyBOKJ2MkIINjxImlvPrkgvl30ExIEQG-Jg",
   authDomain: "pockets-mens-wear.firebaseapp.com",
@@ -12,7 +13,6 @@ export const environment = {
   messagingSenderId: "754576245652",
   appId: "1:754576245652:web:090e1a8dd7a9b836228581",
   measurementId: "G-1BPF7PBKB4"
-
   }
 };
 
