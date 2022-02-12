@@ -18,6 +18,7 @@ export class ManageStockComponent implements OnInit {
   public percentage: number = 0;
   public fileStatus: FileStatus[] = [];
   public fileNames: string[] = [];
+  public imageUrl: string;
   public stockForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     category: ['', Validators.required],
@@ -48,6 +49,7 @@ export class ManageStockComponent implements OnInit {
       i++;
       if (i <= 3) {
         this.fileNames.push(file.name);
+        this.imageUrl = this.imageUrl == null ? file.name : this.imageUrl + ',' + file.name;
         this.upload(file);
       }
     })
@@ -91,6 +93,7 @@ export class ManageStockComponent implements OnInit {
       actualPrice: this.replaceINR(this.stockForm.value.actualPrice),
       dicountedPrice: this.replaceINR(this.stockForm.value.discountedPrice),
       description: this.stockForm.value.description,
+      imageUrl: this.imageUrl,
       sizes: {
         small: this.stockForm.value.small,
         medium: this.stockForm.value.medium,

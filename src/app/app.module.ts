@@ -8,6 +8,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,7 @@ import { LandingComponent } from './landing/landing.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 import { ManageStockComponent } from './manage-stock/manage-stock.component';
 import { FooterComponent } from './footer/footer.component';
+import { Interceptor } from './shared/Interceptor';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,7 @@ import { FooterComponent } from './footer/footer.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
