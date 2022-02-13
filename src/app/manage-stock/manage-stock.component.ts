@@ -5,6 +5,8 @@ import { FileUploadService } from '../shared/file-upload.service';
 import { FileStatus } from '../models/file-status.model';
 import { Subscription } from 'rxjs';
 import { ManageStockService } from './manage-stock.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-manage-stock',
   templateUrl: './manage-stock.component.html',
@@ -32,13 +34,24 @@ export class ManageStockComponent implements OnInit {
     description: ['']
   });
   public categories = ['Shirts', 'Jackets', 'Tshirts', 'Jeans', 'Casual Shoes', 'Sports Shoes', 'Sweatshirts', 'Kurtas', 'Trousers'];
-  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService) { }
+  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
   get f() {
     return this.stockForm.controls;
+  }
+
+  generateFileName(type: string[]) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < 6; i++) {
+      result += characters.charAt(Math.floor(Math.random() *
+        charactersLength));
+    }
+    return result + new Date().getTime() + '.' + type[type.length - 1];
   }
 
   selectFile(event: any): void {
@@ -49,8 +62,9 @@ export class ManageStockComponent implements OnInit {
       i++;
       if (i <= 3) {
         this.fileNames.push(file.name);
-        this.imageUrl = this.imageUrl == null ? file.name : this.imageUrl + ',' + file.name;
-        this.upload(file);
+        let uniqueName = this.generateFileName(file.name.split('.'));
+        this.upload(new File([file], uniqueName));
+        this.imageUrl = this.imageUrl == null ? uniqueName : this.imageUrl + ',' + uniqueName;
       }
     })
   }
@@ -78,7 +92,6 @@ export class ManageStockComponent implements OnInit {
   deleteFile(file: File, index: number): void {
     this._fileUploadService.deleteFileStorage(file.name);
     this.fileStatus.splice(index, 1);
-    console.log(file, index);
   }
 
   formValid(): boolean {
@@ -105,9 +118,11 @@ export class ManageStockComponent implements OnInit {
     console.log(stock)
     this.subscription = this._stockService.createStock(stock).subscribe(
       response => {
-        console.log(response);
         if (response && response.status == 200) {
-
+          this._snackBar.open("Stock Created Successfully!", "Close", {
+            duration: 5000,
+            verticalPosition: 'top'
+          }); 
         }
       })
   }
@@ -115,7 +130,7 @@ export class ManageStockComponent implements OnInit {
   replaceINR(value: string): string {
     let index = value.indexOf('₹');
     if (index > -1) {
-        return value.substring(0, index) + value.substring(index+1);
+      return value.substring(0, index) + value.substring(index + 1);
     }
     return value;
   }

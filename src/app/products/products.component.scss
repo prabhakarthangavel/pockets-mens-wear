@@ -1,0 +1,32 @@
+.tittle{
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+    max-width: calc(100% /2);
+  }
+  
+//   .flex-container > img {
+
+//     max-height: 50%;
+//     margin: 0;
+//   }
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+ }
+  
+ .card {
+     flex: 0 1 45%;
+     margin: 2%;
+     box-shadow: 0 3px 6px -4px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+ }
+
+ .mat-card-header .mat-card-title {
+    font-size: 16px;
+}

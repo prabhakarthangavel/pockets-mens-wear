@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare const $: any;
 
@@ -9,10 +10,18 @@ declare const $: any;
 })
 export class LandingComponent implements OnInit {
 
-  constructor() {}
+
+  constructor(private _router: Router) {}
 
   ngOnInit(): void {
       
+  }
+
+  goProducts(value: string) {
+    this._router.navigate(
+      ['/products'],
+      { queryParams: { category: value } }
+    );
   }
 
 }

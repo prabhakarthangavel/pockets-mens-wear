@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import {,
-// MatCardModule, MatTableModule, , , MatSnackBarModule, MatDatepickerModule, 
+//  MatTableModule, , , MatSnackBarModule, MatDatepickerModule, 
 // MatNativeDateModule, MatAutocompleteModule, MatTabsModule } from '@angular/material/icon';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [],
@@ -30,7 +31,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule
     // MatProgressSpinnerModule,
     // MatDatepickerModule,
     // MatNativeDateModule,
@@ -48,7 +50,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule
     // MatSnackBarModule,
     // MatProgressSpinnerModule,
     // MatDatepickerModule,

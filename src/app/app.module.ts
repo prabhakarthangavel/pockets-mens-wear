@@ -21,6 +21,7 @@ import { ProductViewComponent } from './product-view/product-view.component';
 import { ManageStockComponent } from './manage-stock/manage-stock.component';
 import { FooterComponent } from './footer/footer.component';
 import { Interceptor } from './shared/Interceptor';
+import { ProductsComponent } from './products/products.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { Interceptor } from './shared/Interceptor';
     LandingComponent,
     ProductViewComponent,
     ManageStockComponent,
-    FooterComponent
+    FooterComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,
