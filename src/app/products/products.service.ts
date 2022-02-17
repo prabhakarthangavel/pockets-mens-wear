@@ -11,6 +11,6 @@ export class ProductsService {
   constructor(private _http: HttpClient) { }
 
   getProducts(value: string): Observable<any> {
-    return this._http.get(environment.baseUrl + this.getProductsUrl + value);
+    return this._http.get(environment.baseUrl + this.getProductsUrl + value, { observe: 'response' });
   }
 }

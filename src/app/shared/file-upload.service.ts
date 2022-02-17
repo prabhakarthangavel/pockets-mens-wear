@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { HttpClient } from '@angular/common/http';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 import { from, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -13,7 +15,7 @@ export class FileUploadService {
 
   private basePath = '/uploads';
 
-  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage) { }
+  constructor(private db: AngularFireDatabase, private storage: AngularFireStorage, private _http: HttpClient) { }
 
   public pushFileToStorage(fileUpload: FileUpload): Observable<number | undefined> {
     const filePath = `${this.basePath}/${fileUpload.file.name}`;
@@ -61,4 +63,20 @@ export class FileUploadService {
     const storageRef = this.storage.ref(this.basePath);
     storageRef.child(name).delete();
   }
+
+  public getImageUrl(): any {
+    // gs://pockets-mens-wear.appspot.com/uploads/GMEIZY1644760261280.jpg 
+    this.storage.ref('/uploads/W6G0tV1645025344917').getDownloadURL().subscribe(
+      url => {
+        this._http.get(url, { responseType: 'blob'}).subscribe(
+          response => {
+            console.log('response',response)
+          });
+      });
+     
+  }
+
+
+
+
 }

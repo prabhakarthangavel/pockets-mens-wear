@@ -51,7 +51,8 @@ export class ManageStockComponent implements OnInit {
       result += characters.charAt(Math.floor(Math.random() *
         charactersLength));
     }
-    return result + new Date().getTime() + '.' + type[type.length - 1];
+    return result + new Date().getTime() ;
+    // + '.' + type[type.length - 1];
   }
 
   selectFile(event: any): void {

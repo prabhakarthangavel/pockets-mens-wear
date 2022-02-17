@@ -2,6 +2,8 @@ import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../products/products.service';
 import { Subscription } from 'rxjs';
+import { Product } from '../models/product.model';
+import { FileUploadService } from '../shared/file-upload.service';
 
 @Component({
   selector: 'app-products',
@@ -11,9 +13,11 @@ import { Subscription } from 'rxjs';
 export class ProductsComponent implements OnInit, AfterContentInit {
   public category: string;
   public subscription: Subscription;
-  constructor(private route: ActivatedRoute, private _productsService: ProductsService) { }
+  public productList: Product[];
+  constructor(private route: ActivatedRoute, private _productsService: ProductsService, public _uploadService: FileUploadService) { }
 
   ngOnInit(): void {
+    this._uploadService.getImageUrl();
     this.route.queryParams.subscribe(
       param => {
         this.category = param.category;
@@ -26,6 +30,9 @@ export class ProductsComponent implements OnInit, AfterContentInit {
       this.subscription = this._productsService.getProducts(this.category).subscribe(
         response => {
           console.log(response)
+          if (response && response.status == 200) {
+            this.productList = response.body;
+          }
         });
     }
   }

@@ -1,13 +1,12 @@
 <div class="margin">
     <h2 class="tittle">{{category}}</h2>
-    <div>
+    <div *ngFor="let product of productList">
         <section class="cards">
-                 
             <article class="card">
                 <mat-card>
                     <mat-card-content>
-                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                            alt="Photo of a Shiba Inu">
+                        <!-- <img mat-card-image [src]="_uploadService.getImageUrl()"
+                            alt="Photo of a Shiba Inu"> -->
                     </mat-card-content>
                     <mat-card-header>
                         <mat-card-title>Shiba Inu</mat-card-title>
@@ -15,40 +14,6 @@
                     </mat-card-header>
                 </mat-card>
             </article><!-- /card-one -->
-
-<article class="card">
-    <mat-card>
-        <mat-card-content>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                alt="Photo of a Shiba Inu">
-        </mat-card-content>
-        <mat-card-header>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
-        </article><!-- /card-two -->
-
-<article class="card">
-    <mat-card>
-        <mat-card-content>
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                alt="Photo of a Shiba Inu">
-        </mat-card-content>
-        <mat-card-header>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        </mat-card-header>
-    </mat-card>
-        </article><!-- /card-three -->
-
-<article class="card">
-               <p>content for card four</p>
-        </article><!-- /card-four -->
-
-</section>
-        
-        
+        </section>
     </div>
-    
 </div>
