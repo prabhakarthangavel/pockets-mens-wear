@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list'; 
 
 @NgModule({
   declarations: [],
@@ -32,7 +33,8 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
     // MatProgressSpinnerModule,
     // MatDatepickerModule,
     // MatNativeDateModule,
@@ -51,7 +53,8 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatSelectModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
     // MatSnackBarModule,
     // MatProgressSpinnerModule,
     // MatDatepickerModule,

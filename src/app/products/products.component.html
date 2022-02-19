@@ -5,15 +5,33 @@
             <article class="card">
                 <mat-card>
                     <mat-card-content>
-                        <!-- <img mat-card-image [src]="_uploadService.getImageUrl()"
-                            alt="Photo of a Shiba Inu"> -->
+                        <img mat-card-image [src]="product.imageUrls[0]">
                     </mat-card-content>
-                    <mat-card-header>
-                        <mat-card-title>Shiba Inu</mat-card-title>
-                        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                    </mat-card-header>
+                        <mat-card-title>{{product.name}}</mat-card-title>
+                        <mat-card-subtitle>₹{{product.actualPrice}}</mat-card-subtitle>
                 </mat-card>
-            </article><!-- /card-one -->
+            </article>
         </section>
+        
     </div>
+
+    <mat-grid-list cols="2" rowHeight="1:2">
+        <!-- <mat-grid-tile>
+            <u>abc</u>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <u>test</u>
+        </mat-grid-tile> -->
+        <!-- <ng-container *ngFor="let product of productList">
+            <mat-grid-tile>
+                <mat-card>
+                    <mat-card-content>
+                        <img mat-card-image [src]="product.imageUrls[0]">
+                    </mat-card-content>
+                        <mat-card-title>{{product.name}}</mat-card-title>
+                        <mat-card-subtitle>₹{{product.actualPrice}}</mat-card-subtitle>
+                </mat-card>
+            </mat-grid-tile>
+        </ng-container> -->
+    </mat-grid-list>
 </div>

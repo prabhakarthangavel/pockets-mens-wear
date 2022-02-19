@@ -3,7 +3,7 @@ export interface Product {
     category: string,
     description: string,
     discountedPrice: number,
-    imageUrl: string,
+    imageUrls: string[],
     name: string,
     size: {
         small: number,

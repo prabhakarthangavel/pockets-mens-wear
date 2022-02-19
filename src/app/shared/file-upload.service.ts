@@ -4,7 +4,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { HttpClient } from '@angular/common/http';
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
-import { from, Observable } from 'rxjs';
+import { from, Observable, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { FileUpload } from '../models/file-upload.model';
 
@@ -64,16 +64,26 @@ export class FileUploadService {
     storageRef.child(name).delete();
   }
 
-  public getImageUrl(): any {
+  public getImageUrl() : Observable<string> {
     // gs://pockets-mens-wear.appspot.com/uploads/GMEIZY1644760261280.jpg 
-    this.storage.ref('/uploads/W6G0tV1645025344917').getDownloadURL().subscribe(
-      url => {
-        this._http.get(url, { responseType: 'blob'}).subscribe(
-          response => {
-            console.log('response',response)
-          });
-      });
-     
+    // let url:string;
+    // this.storage.ref('/uploads/W6G0tV1645025344917').getDownloadURL().subscribe(
+    //   url => {url = url
+    //   return url}
+    // );
+    // return url;
+    return this.storage.ref('/uploads/W6G0tV1645025344917').getDownloadURL().pipe(switchMap(url => this._http.get(url, { responseType: 'text'})));
+    // let imageUrl;
+    // this.storage.ref('/uploads/tBf26w1645096452743.jpg').getDownloadURL().subscribe(
+    //   url => {
+    //     console.log('response1',url)
+    //     this._http.get(url, { responseType: 'blob'}).subscribe(
+    //       response => {
+    //         console.log('image',response)
+    //         imageUrl = response;
+    //       });
+    //   });
+    //  return imageUrl;
   }
 
 
