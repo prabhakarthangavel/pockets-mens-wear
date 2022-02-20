@@ -22,6 +22,7 @@ import { ManageStockComponent } from './manage-stock/manage-stock.component';
 import { FooterComponent } from './footer/footer.component';
 import { Interceptor } from './shared/Interceptor';
 import { ProductsComponent } from './products/products.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ProductsComponent } from './products/products.component';
     LayoutModule,
     AppMaterialModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
   bootstrap: [AppComponent]

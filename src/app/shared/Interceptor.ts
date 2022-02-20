@@ -16,9 +16,11 @@ export class Interceptor implements HttpInterceptor {
         }
         const authReq = req.clone({ headers: newHeaders });
         this._authService.spinnerState(true);
+        console.log('spinner state called')
         return next.handle(authReq).pipe(tap(response => {
             if (response instanceof HttpResponse) {
                 this._authService.spinnerState(false);
+                console.log('spinner state end')
             }
         }), catchError(error => {
             let errorMsg = "Error occured try after sometime";

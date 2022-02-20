@@ -1,4 +1,4 @@
 <app-sidenav></app-sidenav>
-<div class="loading-indicator" *ngIf="_authService.spinner | async">
+<div class="loading-indicator" *ngIf="_authService.getSpinner() | async">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>

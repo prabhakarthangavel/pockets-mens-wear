@@ -1,37 +1,20 @@
 <div class="margin">
     <h2 class="tittle">{{category}}</h2>
-    <div *ngFor="let product of productList">
-        <section class="cards">
-            <article class="card">
-                <mat-card>
+    <h3 class="tittle">{{this.productList.length}} products found</h3>
+    <div class="content">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
+                <mat-card class="mat-elevation-z4">
                     <mat-card-content>
                         <img mat-card-image [src]="product.imageUrls[0]">
                     </mat-card-content>
-                        <mat-card-title>{{product.name}}</mat-card-title>
-                        <mat-card-subtitle>₹{{product.actualPrice}}</mat-card-subtitle>
+                    <mat-card-title [ngClass]="product.name.length > 40 ? 'smaller-txt' : product.name.length > 35 ? 'small-txt' : 'medium-txt'">{{product.name}}</mat-card-title>
+                    <mat-card-subtitle>
+                        <span [ngStyle]="{'text-decoration' : product.discountedPrice > 0 ? 'line-through' : ''}">₹{{product.actualPrice}}</span>
+                        <span *ngIf="product.discountedPrice > 0" style="padding-left:5px;">₹{{product.discountedPrice}}</span>
+                    </mat-card-subtitle>
                 </mat-card>
-            </article>
-        </section>
-        
+            </div>
+        </div>
     </div>
-
-    <mat-grid-list cols="2" rowHeight="1:2">
-        <!-- <mat-grid-tile>
-            <u>abc</u>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <u>test</u>
-        </mat-grid-tile> -->
-        <!-- <ng-container *ngFor="let product of productList">
-            <mat-grid-tile>
-                <mat-card>
-                    <mat-card-content>
-                        <img mat-card-image [src]="product.imageUrls[0]">
-                    </mat-card-content>
-                        <mat-card-title>{{product.name}}</mat-card-title>
-                        <mat-card-subtitle>₹{{product.actualPrice}}</mat-card-subtitle>
-                </mat-card>
-            </mat-grid-tile>
-        </ng-container> -->
-    </mat-grid-list>
 </div>
