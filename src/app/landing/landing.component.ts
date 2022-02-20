@@ -11,10 +11,10 @@ declare const $: any;
 export class LandingComponent implements OnInit {
 
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router) { }
 
   ngOnInit(): void {
-      
+
   }
 
   goProducts(value: string) {

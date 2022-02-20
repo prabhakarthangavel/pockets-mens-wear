@@ -16,17 +16,16 @@ export class Interceptor implements HttpInterceptor {
         }
         const authReq = req.clone({ headers: newHeaders });
         this._authService.spinnerState(true);
-        console.log('spinner state called')
         return next.handle(authReq).pipe(tap(response => {
             if (response instanceof HttpResponse) {
                 this._authService.spinnerState(false);
-                console.log('spinner state end')
             }
         }), catchError(error => {
             let errorMsg = "Error occured try after sometime";
-            if(error.error && error.error['response']) errorMsg = error.error['response'];
+            if(error.error && error.error['status']) 
+            errorMsg = error.error['status'];
             this._snackBar.open(errorMsg, "Close", {
-                duration: 5000,
+                duration: 6000,
                 verticalPosition: 'top'
             });
             this._authService.spinnerState(false);

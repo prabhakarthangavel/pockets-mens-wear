@@ -5,17 +5,13 @@ import { AsyncSubject, BehaviorSubject, Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private _spinner = new BehaviorSubject(true);
-  // public spinner = this._spinner.asObservable();
+  private _spinner = new Subject();
+  public spinner = this._spinner.asObservable();
 
   constructor() { }
 
   spinnerState(value: boolean): void {
+    console.log('spinnerState Service')
     this._spinner.next(value);
   }
- 
-  getSpinner(): Observable<any> {
-    return this._spinner.asObservable();
-  }
-
 }

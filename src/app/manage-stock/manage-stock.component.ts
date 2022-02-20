@@ -104,7 +104,7 @@ export class ManageStockComponent implements OnInit {
       name: this.stockForm.value.name,
       category: this.stockForm.value.category,
       actualPrice: this.replaceINR(this.stockForm.value.actualPrice),
-      dicountedPrice: this.replaceINR(this.stockForm.value.discountedPrice),
+      discountedPrice: this.replaceINR(this.stockForm.value.discountedPrice),
       description: this.stockForm.value.description,
       imageUrl: this.imageUrl,
       sizes: {

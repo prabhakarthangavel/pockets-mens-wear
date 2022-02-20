@@ -7,10 +7,15 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ProductsService {
-  public getProductsUrl: string = 'products/fetchProduct/';
+  private getProductsUrl: string = 'products/fetchProduct/';
+  private getProductDetailUrl: string = 'products/productDetail/';
   constructor(private _http: HttpClient) { }
 
   getProducts(value: string): Observable<any> {
     return this._http.get(environment.baseUrl + this.getProductsUrl + value, { observe: 'response' });
+  }
+
+  getProductDetail(id: number): Observable<any> {
+    return this._http.get(environment.baseUrl + this.getProductDetailUrl + id, { observe: 'response' });
   }
 }

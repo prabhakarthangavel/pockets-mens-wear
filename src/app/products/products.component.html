@@ -4,7 +4,7 @@
     <div class="content">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
             <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
-                <mat-card class="mat-elevation-z4">
+                <mat-card class="mat-elevation-z4" (click)="cardClicked(product.id)">
                     <mat-card-content>
                         <img mat-card-image [src]="product.imageUrls[0]">
                     </mat-card-content>
@@ -18,3 +18,4 @@
         </div>
     </div>
 </div>
+
