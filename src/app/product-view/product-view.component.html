@@ -1,1 +1,40 @@
-<p>product-view works!</p>
+<!-- 
+<div class="img-window">
+    <section aria-label="Newest Photos">
+        <div class="carousel" data-carousel>
+          <button class="carousel-button prev" data-carousel-button="prev">&#8656;</button>
+          <button class="carousel-button next" data-carousel-button="next">&#8658;</button>
+          <ul data-slides>
+            <li class="slide" data-active>
+              <img src="https://source.unsplash.com/78A265wPiO4" alt="Nature Image #1">
+            </li>
+            <li class="slide">
+              <img src="https://source.unsplash.com/eOpewngf68w" alt="Nature Image #2">
+            </li>
+            <li class="slide">
+              <img src="https://source.unsplash.com/ndN00KmbJ1c" alt="Nature Image #3">
+            </li>
+          </ul>
+        </div>
+      </section>
+</div> -->
+<div class="margin">
+  <h2 class="tittle">{{product.name}}</h2>
+
+  <div class="price-tittle">
+    <span
+      [ngStyle]="{'text-decoration' : product.discountedPrice > 0 ? 'line-through' : ''}">₹{{product.actualPrice}}</span>
+    <span *ngIf="product.discountedPrice > 0" style="padding-left:5px;">₹{{product.discountedPrice}}</span>
+  </div>
+
+  <div class="image-view">
+    <img [src]="selectedImgUrl">
+  </div>
+
+  <div class="image-selector">
+    <div *ngFor="let imgUrl of product.imageUrls">
+      <img [src]="imgUrl" (click)="imageSelected(imgUrl)" [ngClass]="selectedImgUrl == imgUrl ? 'icon-highlight' : ''">
+    </div>
+  </div>
+
+</div>
