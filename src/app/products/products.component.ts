@@ -16,7 +16,7 @@ export class ProductsComponent implements OnInit, AfterContentInit, OnDestroy {
   public category: string;
   public subscription: Subscription;
   public productList: Product[] = [];
-  viewSpinner: boolean;
+  public spinner: boolean = true;
   constructor(private route: ActivatedRoute, private _productsService: ProductsService, public _uploadService: FileUploadService,
     public _authService: AuthService, private _router: Router) { }
 
@@ -31,8 +31,8 @@ export class ProductsComponent implements OnInit, AfterContentInit, OnDestroy {
     if (this.category) {
       this.subscription = this._productsService.getProducts(this.category).subscribe(
         response => {
-          this.viewSpinner = true;
           if (response && response.status == 200) {
+            this.spinner = false;
             for (let i = 0; i < response.body.length; i++) {
               let urls: string[] = [];
               response.body[i].imageUrl.split(',').forEach((img: string) => {

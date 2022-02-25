@@ -1,24 +1,7 @@
-<!-- 
-<div class="img-window">
-    <section aria-label="Newest Photos">
-        <div class="carousel" data-carousel>
-          <button class="carousel-button prev" data-carousel-button="prev">&#8656;</button>
-          <button class="carousel-button next" data-carousel-button="next">&#8658;</button>
-          <ul data-slides>
-            <li class="slide" data-active>
-              <img src="https://source.unsplash.com/78A265wPiO4" alt="Nature Image #1">
-            </li>
-            <li class="slide">
-              <img src="https://source.unsplash.com/eOpewngf68w" alt="Nature Image #2">
-            </li>
-            <li class="slide">
-              <img src="https://source.unsplash.com/ndN00KmbJ1c" alt="Nature Image #3">
-            </li>
-          </ul>
-        </div>
-      </section>
-</div> -->
-<div class="margin">
+<div class="loading-indicator" *ngIf="spinner">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div class="margin" *ngIf="!spinner">
   <h2 class="tittle">{{product.name}}</h2>
 
   <div class="price-tittle">
@@ -36,5 +19,15 @@
       <img [src]="imgUrl" (click)="imageSelected(imgUrl)" [ngClass]="selectedImgUrl == imgUrl ? 'icon-highlight' : ''">
     </div>
   </div>
+
+<div>
+  <h3>Size:</h3>
+  <mat-chip-list aria-label="sizeList">
+    <mat-chip disabled>Small</mat-chip>
+    <mat-chip>Medium</mat-chip>
+    <mat-chip  selected>Large</mat-chip>
+    <mat-chip>xLarge</mat-chip>
+  </mat-chip-list>
+</div>
 
 </div>

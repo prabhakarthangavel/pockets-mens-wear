@@ -1,8 +1,35 @@
-<div class="margin">
+<div class="loading-indicator" *ngIf="spinner">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div class="margin" *ngIf="!spinner">
     <h2 class="tittle">{{category}}</h2>
     <h3 class="tittle">{{this.productList.length}} products found</h3>
     <div class="content">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
+                <mat-card class="mat-elevation-z4" (click)="cardClicked(product.id)">
+                    <mat-card-content>
+                        <img mat-card-image [src]="product.imageUrls[0]">
+                    </mat-card-content>
+                    <mat-card-title [ngClass]="product.name.length > 40 ? 'smaller-txt' : product.name.length > 35 ? 'small-txt' : 'medium-txt'">{{product.name}}</mat-card-title>
+                    <mat-card-subtitle>
+                        <span [ngStyle]="{'text-decoration' : product.discountedPrice > 0 ? 'line-through' : ''}">₹{{product.actualPrice}}</span>
+                        <span *ngIf="product.discountedPrice > 0" style="padding-left:5px;">₹{{product.discountedPrice}}</span>
+                    </mat-card-subtitle>
+                </mat-card>
+            </div>
+            <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
+                <mat-card class="mat-elevation-z4" (click)="cardClicked(product.id)">
+                    <mat-card-content>
+                        <img mat-card-image [src]="product.imageUrls[0]">
+                    </mat-card-content>
+                    <mat-card-title [ngClass]="product.name.length > 40 ? 'smaller-txt' : product.name.length > 35 ? 'small-txt' : 'medium-txt'">{{product.name}}</mat-card-title>
+                    <mat-card-subtitle>
+                        <span [ngStyle]="{'text-decoration' : product.discountedPrice > 0 ? 'line-through' : ''}">₹{{product.actualPrice}}</span>
+                        <span *ngIf="product.discountedPrice > 0" style="padding-left:5px;">₹{{product.discountedPrice}}</span>
+                    </mat-card-subtitle>
+                </mat-card>
+            </div>
             <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
                 <mat-card class="mat-elevation-z4" (click)="cardClicked(product.id)">
                     <mat-card-content>

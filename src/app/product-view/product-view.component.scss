@@ -91,10 +91,10 @@
 
 .image-view {
   justify-content: center;
-    overflow-y: hidden !important;
-    align-items: center;
-    display: flex;
-    margin: 15px 0 15px 0;
+  overflow: hidden!important;
+  align-items: center;
+  display: flex;
+  margin: 15px 0;
 }
 
 .image-view > img {
@@ -120,4 +120,11 @@
 .icon-highlight {
   opacity: 1!important;
   border: 2px solid #e91e63;
+}
+
+@media only screen and (min-width: 600px) {
+  .image-view > img {
+    max-width: 50vw;
+    max-height: 45vh;
+  }
 }

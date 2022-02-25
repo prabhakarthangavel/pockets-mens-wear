@@ -15,6 +15,7 @@ export class ProductViewComponent implements OnInit, AfterContentInit, OnDestroy
   public product: Product;
   public subscription: Subscription;
   public selectedImgUrl: string;
+  public spinner: boolean = true;
   constructor(private route: ActivatedRoute, private _productService: ProductsService) { }
 
   ngOnInit(): void {
@@ -31,6 +32,7 @@ export class ProductViewComponent implements OnInit, AfterContentInit, OnDestroy
         response => {
           console.log(response)
           if (response && response.status == 200) {
+            this.spinner = false;
             let urls: string[] = [];
             response.body.imageUrl.split(',').forEach((img: string) => {
               urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + img + '?alt=media');
