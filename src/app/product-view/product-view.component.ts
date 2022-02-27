@@ -16,6 +16,8 @@ export class ProductViewComponent implements OnInit, AfterContentInit, OnDestroy
   public subscription: Subscription;
   public selectedImgUrl: string;
   public spinner: boolean = true;
+  public selectedSize: string;
+  public count: number = 1;
   constructor(private route: ActivatedRoute, private _productService: ProductsService) { }
 
   ngOnInit(): void {
@@ -49,15 +51,31 @@ export class ProductViewComponent implements OnInit, AfterContentInit, OnDestroy
             }
             this.selectedImgUrl = product.imageUrls[0];
             this.product = product;
+            this.selectedSize = this.product.size.small > 0 ? 'small' : this.product.size.medium > 0 ? 'medium' : this.product.size.large > 0 ? 'large' :
+            this.product.size.xlarge > 0 ? 'xlarge' : this.product.size.xxlarge > 0 ? 'xxlarge' : '';
           }
-
         });
     }
   }
 
   imageSelected(imgUrl: string) {
-    console.log(imgUrl)
     this.selectedImgUrl = imgUrl;
+  }
+
+  chipClicked(size: string) {
+    this.selectedSize = size;
+    this.count = 1;
+  }
+
+  plusMins(value: string) {
+    console.log(this.selectedSize)
+    let count = this.selectedSize == 'small' ? this.product.size.small : this.selectedSize == 'medium' ? this.product.size.medium :
+    this.selectedSize == 'xlarge' ? this.product.size.xlarge : this.selectedSize == 'xxlarge' ? this.product.size.xxlarge : 0;
+    if (value == 'add' && this.count < count) {
+      this.count++;
+    }else if (value == 'minus' && this.count > 0) {
+      this.count--;
+    }
   }
 
   ngOnDestroy() {

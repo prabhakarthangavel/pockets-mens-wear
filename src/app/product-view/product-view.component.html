@@ -23,11 +23,26 @@
 <div>
   <h3>Size:</h3>
   <mat-chip-list aria-label="sizeList">
-    <mat-chip disabled>Small</mat-chip>
-    <mat-chip>Medium</mat-chip>
-    <mat-chip  selected>Large</mat-chip>
-    <mat-chip>xLarge</mat-chip>
+    <mat-chip [disabled]="product.size.small <= 0" (click)="product.size.small > 0 && chipClicked('small')" [selected]="selectedSize == 'small'">Small</mat-chip>
+    <mat-chip [disabled]="product.size.medium <= 0" (click)="product.size.medium > 0 && chipClicked('medium')" [selected]="selectedSize == 'medium'">Medium</mat-chip>
+    <mat-chip [disabled]="product.size.large <= 0" (click)="product.size.large > 0 && chipClicked('large')" [selected]="selectedSize == 'large'">Large</mat-chip>
+    <mat-chip [disabled]="product.size.xlarge <= 0" (click)="product.size.xlarge > 0 && chipClicked('xlarge')" [selected]="selectedSize == 'xlarge'">xLarge</mat-chip>
+    <mat-chip [disabled]="product.size.xxlarge <= 0" (click)="product.size.xxlarge > 0 && chipClicked('xxlarge')" [selected]="selectedSize == 'xxlarge'">xx Large</mat-chip>
   </mat-chip-list>
 </div>
 
+<div class="plusMinus">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle (click)="plusMins('minus')" >-</mat-button-toggle>
+    <mat-button-toggle>{{count}}</mat-button-toggle>
+    <mat-button-toggle (click)="plusMins('add')" >+</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+  <button mat-raised-button class="buyIt">ADD TO CART</button>
+  <button mat-raised-button color="primary" class="buyIt">BUY IT NOW</button>
+
+  <div>
+    <h3>{{product.description}}</h3>
+  </div>
 </div>

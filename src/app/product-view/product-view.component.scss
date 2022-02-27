@@ -128,3 +128,15 @@
     max-height: 45vh;
   }
 }
+
+.plusMinus {
+  margin: 5% 0;
+  display: flex;
+  justify-content: center;
+}
+
+.buyIt {
+  width: -webkit-fill-available;
+  margin-bottom: 3%;
+  height: 40px;
+}
