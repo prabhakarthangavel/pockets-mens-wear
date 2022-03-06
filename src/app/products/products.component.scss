@@ -27,21 +27,6 @@
 //      box-shadow: 0 3px 6px -4px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
 //  }
 
-.medium-txt {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.small-txt {
-    font-size: 0.8rem;
-    font-weight: 500;
-}
-
-.smaller-txt {
-    font-size: 0.7rem;
-    font-weight: 500;
-}
-
 //https://github.com/thisiszoaib/card-view-demo/tree/master/src/app
 //https://www.youtube.com/watch?v=O460xQPYckE
 mat-toolbar {
@@ -57,21 +42,3 @@ mat-toolbar {
     max-height: 100px;
 }
 
-.mat-card {
-    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-    display: block;
-    position: relative;
-    padding: 16px;
-    border-radius: 4px;
-}
-
-@media only screen and (min-width: 600px) {
-    .mat-card {
-        transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-        display: block;
-        position: relative;
-        padding: 16px;
-        border-radius: 4px;
-        margin: 10%;
-    }
-}

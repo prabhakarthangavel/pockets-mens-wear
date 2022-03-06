@@ -23,6 +23,8 @@ import { FooterComponent } from './footer/footer.component';
 import { Interceptor } from './shared/Interceptor';
 import { ProductsComponent } from './products/products.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { UpdateStockComponent } from './manage-stock/update-stock/update-stock.component';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ProductViewComponent,
     ManageStockComponent,
     FooterComponent,
-    ProductsComponent
+    ProductsComponent,
+    UpdateStockComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,

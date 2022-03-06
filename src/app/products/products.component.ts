@@ -1,65 +1,60 @@
-import { AfterContentInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../products/products.service';
 import { Subscription } from 'rxjs';
 import { Product } from '../models/product.model';
 import { FileUploadService } from '../shared/file-upload.service';
 import { AuthService } from '../authenticate/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ProductsComponent implements OnInit {
   public category: string;
   public subscription: Subscription;
   public productList: Product[] = [];
   public spinner: boolean = true;
   constructor(private route: ActivatedRoute, private _productsService: ProductsService, public _uploadService: FileUploadService,
-    public _authService: AuthService, private _router: Router) { }
+    public _authService: AuthService) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(
       param => {
         this.category = param.category;
-      });
-  }
-
-  ngAfterContentInit() {
-    if (this.category) {
-      this.subscription = this._productsService.getProducts(this.category).subscribe(
-        response => {
-          if (response && response.status == 200) {
-            this.spinner = false;
-            for (let i = 0; i < response.body.length; i++) {
-              let urls: string[] = [];
-              response.body[i].imageUrl.split(',').forEach((img: string) => {
-                urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + img + '?alt=media');
-              })
-              const product = {
-                id: response.body[i].id,
-                actualPrice: response.body[i].actualPrice,
-                category: response.body[i].category,
-                description: response.body[i].description,
-                discountedPrice: response.body[i].discountedPrice,
-                name: response.body[i].name,
-                size: response.body[i].sizes,
-                imageUrls: urls
+        this.productList = [];
+        this.subscription = this._productsService.getProducts(this.category).subscribe(
+          response => {
+            if (response && response.status == 200) {
+              this.spinner = false;
+              for (let i = 0; i < response.body.length; i++) {
+                console.log(response)
+                let urls: string[] = [];
+                if (response.body[i].imageUrl && response.body[i].imageUrl.indexOf(',') > 0) {
+                  response.body[i].imageUrl.split(',').forEach((img: string) => {
+                    urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + img + '?alt=media');
+                  })
+                }else if (response.body[i].imageUrl) {
+                  urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + response.body[i].imageUrl + '?alt=media');
+                } else {
+                  urls.push('../../assets/image_not_available.jpg')
+                }
+                const product = {
+                  id: response.body[i].id,
+                  actualPrice: response.body[i].actualPrice,
+                  category: response.body[i].category,
+                  description: response.body[i].description,
+                  discountedPrice: response.body[i].discountedPrice,
+                  name: response.body[i].name,
+                  size: response.body[i].sizes,
+                  imageUrls: urls
+                }
+                this.productList.push(product);
               }
-              this.productList.push(product);
             }
-          }
-        });
-    }
-  }
-
-  cardClicked(productId: any) {
-    this._router.navigate(
-      ['/productsView'],
-      { queryParams: { productId: productId } }
-    );
+          });
+      });
   }
 
   ngOnDestroy() {

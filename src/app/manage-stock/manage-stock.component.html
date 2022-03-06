@@ -1,7 +1,8 @@
 <div class="margin">
-  <h2>Create New Stock</h2>
+  <h2 *ngIf="!update">Create New Stock</h2>
+  <h2 *ngIf="update">Edit Stock</h2>
 
-  <div>
+  <div *ngIf="!update">
     <button (click)="fileInput.click()" mat-flat-button color="primary" class="upload-btn">
       <mat-label>Upload Images (max 3 files)</mat-label>
       <input #fileInput type="file" multiple="multiple" accept=".jpg,.jpeg,.png" (change)="selectFile($event)"
@@ -98,4 +99,4 @@
   </form>
 </div>
 
-<app-footer submit="Submit" cancel="Cancel" [valid]="formValid()" (card)="submit()"></app-footer>
+<app-footer [submit]="update ? 'Edit' : 'Add'" cancel="Cancel" [valid]="formValid()" (card)="submit()"></app-footer>

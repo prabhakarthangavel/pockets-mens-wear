@@ -1,0 +1,11 @@
+<mat-card class="mat-elevation-z4 card-size " (click)="cardClicked(product.id)">
+    <mat-card-content [ngClass]="enableEdit ? 'container' : ''">
+        <img mat-card-image [src]="product.imageUrls[0]" height="222px" width="171px">
+        <div class="centered" *ngIf="enableEdit">EDIT</div>
+    </mat-card-content>
+    <mat-card-title [ngClass]="product.name.length > 40 ? 'smaller-txt' : product.name.length > 35 ? 'small-txt' : 'medium-txt'">{{product.name}}</mat-card-title>
+    <mat-card-subtitle>
+        <span [ngStyle]="{'text-decoration' : product.discountedPrice > 0 ? 'line-through' : ''}">₹{{product.actualPrice}}</span>
+        <span *ngIf="product.discountedPrice > 0" style="padding-left:5px;">₹{{product.discountedPrice}}</span>
+    </mat-card-subtitle>
+</mat-card>

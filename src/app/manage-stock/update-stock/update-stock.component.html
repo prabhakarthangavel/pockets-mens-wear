@@ -1,0 +1,10 @@
+<div class="loading-indicator" *ngIf="spinner">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+<div class="content" *ngIf="!spinner">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
+            <app-product-card [product]="product" [enableEdit]="true"></app-product-card>
+        </div>
+    </div>
+</div>

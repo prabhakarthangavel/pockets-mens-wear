@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { FileUpload } from '../models/file-upload.model';
 import { FileUploadService } from '../shared/file-upload.service';
@@ -6,13 +6,15 @@ import { FileStatus } from '../models/file-status.model';
 import { Subscription } from 'rxjs';
 import { ManageStockService } from './manage-stock.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { ProductsService } from '../products/products.service';
 
 @Component({
   selector: 'app-manage-stock',
   templateUrl: './manage-stock.component.html',
   styleUrls: ['./manage-stock.component.scss']
 })
-export class ManageStockComponent implements OnInit {
+export class ManageStockComponent implements OnInit, AfterContentChecked {
   public subscription: Subscription;
   public selectedFiles: FileList;
   public files: File[];
@@ -34,9 +36,50 @@ export class ManageStockComponent implements OnInit {
     description: ['']
   });
   public categories = ['Shirts', 'Jackets', 'Tshirts', 'Jeans', 'Casual Shoes', 'Sports Shoes', 'Sweatshirts', 'Kurtas', 'Trousers'];
-  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService, private _snackBar: MatSnackBar) { }
+  public productId: number;
+  public update: boolean;
+  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService, private _snackBar: MatSnackBar, private route: ActivatedRoute, private _productService: ProductsService) { }
+
+  //checks when switch from Edit to Create
+  ngAfterContentChecked(): void {
+    this.route.queryParams.subscribe(
+      param => { if (!param.productId) this.update = false });
+  }
 
   ngOnInit(): void {
+    this.update = false;
+    this.route.queryParams.subscribe(
+      param => {
+        this.productId = param.productId;
+        if (this.productId) {
+          this.update = true;
+          this.subscription = this._productService.getProductDetail(this.productId).subscribe(
+            response => {
+              if (response && response.status == 200) {
+                console.log(response)
+                let urls: string[] = [];
+                response.body.imageUrl.split(',').forEach((img: string) => {
+                  urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + img + '?alt=media');
+                })
+                const product = {
+                  id: response.body.id,
+                  actualPrice: response.body.actualPrice,
+                  category: response.body.category,
+                  description: response.body.description,
+                  discountedPrice: response.body.discountedPrice,
+                  name: response.body.name,
+                  small: response.body.sizes.small,
+                  medium: response.body.sizes.medium,
+                  large: response.body.sizes.large,
+                  xlarge: response.body.sizes.xlarge,
+                  xxlarge: response.body.sizes.xxlarge,
+                  // imageUrls: urls
+                }
+                this.stockForm.patchValue(product);
+              }
+            });
+        }
+      });
   }
 
   get f() {
@@ -101,13 +144,15 @@ export class ManageStockComponent implements OnInit {
 
   submit(): void {
     const stock = {
+      id: this.productId,
       name: this.stockForm.value.name,
       category: this.stockForm.value.category,
-      actualPrice: this.replaceINR(this.stockForm.value.actualPrice),
-      discountedPrice: this.replaceINR(this.stockForm.value.discountedPrice),
+      actualPrice: typeof this.stockForm.value.actualPrice == 'string' ? this.replaceINR(this.stockForm.value.actualPrice) : this.stockForm.value.actualPrice,
+      discountedPrice: typeof this.stockForm.value.discountedPrice == 'string' ? this.replaceINR(this.stockForm.value.discountedPrice) : this.stockForm.value.discountedPrice,
       description: this.stockForm.value.description,
       imageUrl: this.imageUrl,
       sizes: {
+        id: this.productId,
         small: this.stockForm.value.small,
         medium: this.stockForm.value.medium,
         large: this.stockForm.value.large,
@@ -116,15 +161,27 @@ export class ManageStockComponent implements OnInit {
       }
     }
     console.log(stock)
-    this.subscription = this._stockService.createStock(stock).subscribe(
-      response => {
-        if (response && response.status == 200) {
-          this._snackBar.open("Stock Created Successfully!", "Close", {
-            duration: 5000,
-            verticalPosition: 'top'
-          }); 
-        }
-      })
+    if (this.update) {
+      this.subscription = this._stockService.editStock(stock).subscribe(
+        response => {
+          if (response && response.status == 200) {
+            this._snackBar.open("Stock Updated Successfully!", "Close", {
+              duration: 5000,
+              verticalPosition: 'top'
+            });
+          }
+        });
+    } else {
+      this.subscription = this._stockService.createStock(stock).subscribe(
+        response => {
+          if (response && response.status == 200) {
+            this._snackBar.open("Stock Created Successfully!", "Close", {
+              duration: 5000,
+              verticalPosition: 'top'
+            });
+          }
+        })
+    }
   }
 
   replaceINR(value: string): string {
