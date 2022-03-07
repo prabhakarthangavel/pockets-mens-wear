@@ -1,27 +1,3 @@
-.mat-card {
-    transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-    display: block;
-    position: relative;
-    padding: 16px;
-    border-radius: 4px;
-}
-
-@media only screen and (min-width: 600px) {
-    .mat-card {
-        transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
-        display: block;
-        position: relative;
-        padding: 16px;
-        border-radius: 4px;
-        margin: 10%;
-    }
-}
-
-.card-size {
-    height: 314;
-    width: 171;
-}
-
 .medium-txt {
     font-size: 0.9rem;
     font-weight: 500;
@@ -55,5 +31,10 @@
 }
 
 mat-card-title {
-    height: 35px;
+    min-height: 39px;
+}
+
+mat-card img{
+    max-height: 222px;
+    max-width: 171px;
 }
