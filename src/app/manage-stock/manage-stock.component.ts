@@ -8,6 +8,7 @@ import { ManageStockService } from './manage-stock.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../products/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-stock',
@@ -38,7 +39,7 @@ export class ManageStockComponent implements OnInit, AfterContentChecked {
   public categories = ['Shirts', 'Jackets', 'Tshirts', 'Jeans', 'Casual Shoes', 'Sports Shoes', 'Sweatshirts', 'Kurtas', 'Trousers'];
   public productId: number;
   public update: boolean;
-  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService, private _snackBar: MatSnackBar, private route: ActivatedRoute, private _productService: ProductsService) { }
+  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService, private _snackBar: MatSnackBar, private route: ActivatedRoute, private _productService: ProductsService,private _router: Router) { }
 
   //checks when switch from Edit to Create
   ngAfterContentChecked(): void {
@@ -169,6 +170,7 @@ export class ManageStockComponent implements OnInit, AfterContentChecked {
               duration: 5000,
               verticalPosition: 'top'
             });
+            this._router.navigate(['/update-stock']);
           }
         });
     } else {

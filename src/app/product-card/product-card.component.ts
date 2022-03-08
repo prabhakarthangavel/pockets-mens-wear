@@ -17,7 +17,7 @@ export class ProductCardComponent implements OnInit {
     console.log('enableedit', this.enableEdit)
   }
 
-  cardClicked(productId: any) {
+  editProduct(productId: any) {
     if (!this.enableEdit) {
       this._router.navigate(['/productsView'], { queryParams: { productId: productId } });
     } else {

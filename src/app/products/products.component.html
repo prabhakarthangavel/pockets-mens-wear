@@ -6,7 +6,7 @@
     <h3 class="tittle">{{this.productList.length}} products found</h3>
     <div class="content">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-            <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
+            <div fxFlex="20%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
                 <app-product-card [product]="product" [enableEdit]="false"></app-product-card>
             </div>
         </div>

@@ -27,7 +27,6 @@ export class ProductViewComponent implements OnInit {
         this.productId = param.productId;
         this.subscription = this._productService.getProductDetail(this.productId).subscribe(
           response => {
-            console.log(response)
             if (response && response.status == 200) {
               this.spinner = false;
               let urls: string[] = [];

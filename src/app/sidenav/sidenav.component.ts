@@ -29,4 +29,8 @@ export class SidenavComponent {
     );
   }
 
+  isMobile(): boolean {
+    return window.screen.width < 600 ? true : false;
+  }
+
 }

@@ -1,9 +1,9 @@
-<mat-card class="mat-elevation-z4 card-size " (click)="cardClicked(product.id)">
+<mat-card class="mat-elevation-z4 card-size">
     <mat-card-content [ngClass]="enableEdit ? 'container' : ''">
         <img mat-card-image [src]="product.imageUrls[0]" height="222px" width="171px">
         <div class="centered" *ngIf="enableEdit">
-            <button mat-raised-button color="primary">Edit</button>
-            <button mat-raised-button color="secondary">Delete</button> 
+            <button mat-raised-button color="primary" style="margin-bottom: 5px;" (click)="editProduct(product.id)">Edit</button>
+            <button mat-raised-button color="secondary" style="margin-top: 5px;">Delete</button> 
         </div>
     </mat-card-content>
 

@@ -16,10 +16,6 @@
 .container {
     position: relative;
     text-align: center;
-    color: white;
-    opacity: 0.5;
-    font-size: xx-large;
-    font-weight: bold;
   }
   
 
@@ -34,7 +30,10 @@ mat-card-title {
     min-height: 39px;
 }
 
-mat-card img{
-    max-height: 222px;
+mat-card {
     max-width: 171px;
+    img{
+        max-height: 222px;
+        
+    }
 }

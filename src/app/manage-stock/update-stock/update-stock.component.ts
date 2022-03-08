@@ -20,10 +20,17 @@ export class UpdateStockComponent implements OnInit, OnDestroy {
         if (response && response.status == 200) {
           this.spinner = false;
           for (let i = 0; i < response.body.length; i++) {
+            console.log(response)
             let urls: string[] = [];
-            response.body[i].imageUrl.split(',').forEach((img: string) => {
-              urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + img + '?alt=media');
-            })
+            if (response.body[i].imageUrl && response.body[i].imageUrl.indexOf(',') > 0) {
+              response.body[i].imageUrl.split(',').forEach((img: string) => {
+                urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + img + '?alt=media');
+              })
+            } else if (response.body[i].imageUrl) {
+              urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + response.body[i].imageUrl + '?alt=media');
+            } else {
+              urls.push('../../assets/image_not_available.jpg')
+            }
             const product = {
               id: response.body[i].id,
               actualPrice: response.body[i].actualPrice,
