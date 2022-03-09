@@ -25,6 +25,7 @@ import { ProductsComponent } from './products/products.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UpdateStockComponent } from './manage-stock/update-stock/update-stock.component';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { DeleteDialogComponent } from './manage-stock/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ProductCardComponent } from './product-card/product-card.component';
     FooterComponent,
     ProductsComponent,
     UpdateStockComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
     FlexLayoutModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteDialogComponent]
 })
 export class AppModule { }

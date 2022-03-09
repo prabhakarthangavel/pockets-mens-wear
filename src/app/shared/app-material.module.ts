@@ -19,6 +19,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -40,7 +41,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatGridListModule,
     MatChipsModule,
     MatButtonToggleModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
     // MatProgressSpinnerModule,
     // MatDatepickerModule,
     // MatNativeDateModule,
@@ -63,7 +65,8 @@ import { MatMenuModule } from '@angular/material/menu';
     MatGridListModule,
     MatChipsModule,
     MatButtonToggleModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
     // MatSnackBarModule,
     // MatProgressSpinnerModule,
     // MatDatepickerModule,
