@@ -2,9 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ManageStockService } from '../manage-stock.service';
 import { Product } from '../../models/product.model';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import {MatDialog } from '@angular/material/dialog';
-
 
 @Component({
   selector: 'app-update-stock',
@@ -15,7 +12,7 @@ export class UpdateStockComponent implements OnInit, OnDestroy {
   public subscription: Subscription;
   public productList: Product[] = [];
   public spinner: boolean = true;
-  constructor(private _stockService: ManageStockService, public dialog: MatDialog) { }
+  constructor(private _stockService: ManageStockService) { }
 
   ngOnInit(): void {
     this.subscription = this._stockService.fetchStock().subscribe(
@@ -23,7 +20,6 @@ export class UpdateStockComponent implements OnInit, OnDestroy {
         if (response && response.status == 200) {
           this.spinner = false;
           for (let i = 0; i < response.body.length; i++) {
-            console.log(response)
             let urls: string[] = [];
             if (response.body[i].imageUrl && response.body[i].imageUrl.indexOf(',') > 0) {
               response.body[i].imageUrl.split(',').forEach((img: string) => {
@@ -50,16 +46,11 @@ export class UpdateStockComponent implements OnInit, OnDestroy {
       })
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      width: '250px',
-      data: {name: "name", animal: 'animal'},
-    });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    //   this.animal = result;
-    // });
+  reload(event?: any) {
+    if (event && event == 'deleted') {
+      this.productList = [];
+      this.ngOnInit();
+    }
   }
 
   ngOnDestroy() {

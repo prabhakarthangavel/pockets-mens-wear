@@ -10,6 +10,7 @@ export class ManageStockService {
   private createStockURL: string = environment.baseUrl + 'manageStock/createStock';
   private fetchProductsURl: string = environment.baseUrl + 'products/fetchProduct';
   private editStockURL: string = environment.baseUrl + 'manageStock/editStock';
+  private deleteStockURL: string = environment.baseUrl + 'manageStock/deleteStock';
   constructor(private _http: HttpClient) { }
 
   public createStock(stockObj: any): Observable<any> {
@@ -24,9 +25,7 @@ export class ManageStockService {
     return this._http.post(this.editStockURL, stockObj, { observe: 'response' })
   }
 
-  public submitTest() {
-
+  deleteStock(id: any): Observable<any> {
+    return this._http.delete(this.deleteStockURL + '/' + id, { observe: 'response' });
   }
-
-
 }

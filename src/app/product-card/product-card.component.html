@@ -3,7 +3,7 @@
         <img mat-card-image [src]="product.imageUrls[0]" height="222px" width="171px">
         <div class="centered" *ngIf="enableEdit">
             <button mat-raised-button color="primary" style="margin-bottom: 5px;" (click)="editProduct(product.id)">Edit</button>
-            <button mat-raised-button color="secondary" style="margin-top: 5px;">Delete</button> 
+            <button mat-raised-button color="secondary" style="margin-top: 5px;" (click)="openDialog()">Delete</button> 
         </div>
     </mat-card-content>
 

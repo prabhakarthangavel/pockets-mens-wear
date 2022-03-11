@@ -39,7 +39,7 @@ export class ManageStockComponent implements OnInit, AfterContentChecked {
   public categories = ['Shirts', 'Jackets', 'Tshirts', 'Jeans', 'Casual Shoes', 'Sports Shoes', 'Sweatshirts', 'Kurtas', 'Trousers'];
   public productId: number;
   public update: boolean;
-  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService, private _snackBar: MatSnackBar, private route: ActivatedRoute, private _productService: ProductsService,private _router: Router) { }
+  constructor(private fb: FormBuilder, private _fileUploadService: FileUploadService, private _stockService: ManageStockService, private _snackBar: MatSnackBar, private route: ActivatedRoute, private _productService: ProductsService, private _router: Router) { }
 
   //checks when switch from Edit to Create
   ngAfterContentChecked(): void {
@@ -57,11 +57,6 @@ export class ManageStockComponent implements OnInit, AfterContentChecked {
           this.subscription = this._productService.getProductDetail(this.productId).subscribe(
             response => {
               if (response && response.status == 200) {
-                console.log(response)
-                let urls: string[] = [];
-                response.body.imageUrl.split(',').forEach((img: string) => {
-                  urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + img + '?alt=media');
-                })
                 const product = {
                   id: response.body.id,
                   actualPrice: response.body.actualPrice,
@@ -74,6 +69,7 @@ export class ManageStockComponent implements OnInit, AfterContentChecked {
                   large: response.body.sizes.large,
                   xlarge: response.body.sizes.xlarge,
                   xxlarge: response.body.sizes.xxlarge,
+                  //imageUrl edit is disabled
                   // imageUrls: urls
                 }
                 this.stockForm.patchValue(product);
