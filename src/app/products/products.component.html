@@ -1,12 +1,12 @@
 <div class="loading-indicator" *ngIf="spinner">
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
-<div class="margin1" *ngIf="!spinner">
+<div class="margin" *ngIf="!spinner">
     <h2 class="tittle">{{category}}</h2>
     <h3 class="tittle">{{this.productList.length}} products found</h3>
     <div class="content">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-            <div fxFlex="20%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
+            <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
                 <app-product-card [product]="product" [enableEdit]="false"></app-product-card>
             </div>
         </div>

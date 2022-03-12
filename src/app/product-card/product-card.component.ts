@@ -20,11 +20,11 @@ export class ProductCardComponent implements OnInit {
   }
 
   editProduct(productId: any) {
-    if (!this.enableEdit) {
-      this._router.navigate(['/productsView'], { queryParams: { productId: productId } });
-    } else {
-      this._router.navigate(['/manage-stock'], { queryParams: { productId: productId } });
-    }
+    this._router.navigate(['/manage-stock'], { queryParams: { productId: productId } });
+  }
+
+  productView(productId: any) {
+    if (!this.enableEdit) this._router.navigate(['/productsView'], { queryParams: { productId: productId } });
   }
 
   openDialog(): void {
@@ -37,5 +37,5 @@ export class ProductCardComponent implements OnInit {
       if (result == 'deleted') this.reload.emit('deleted');
     });
   }
-  
+
 }

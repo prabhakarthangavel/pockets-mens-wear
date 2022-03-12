@@ -10,3 +10,9 @@ mat-toolbar {
     margin-bottom: 16px;
     max-height: 100px;
 }
+
+@media only screen and (min-width: 600px) {
+    .margin {
+      margin:  2% 10% 0 10%;
+    }
+  }
