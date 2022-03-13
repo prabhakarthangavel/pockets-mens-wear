@@ -1,0 +1,42 @@
+.tittle{
+    text-align: center;
+    margin: 0 50px 5px 30px;
+}
+
+@media only screen and (min-width: 900px) {
+    .margin {
+        margin: 5% 20%;
+    }
+}
+
+input {
+    color: whitesmoke;
+}
+
+.login-footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 10% 10% 0 10%;
+}
+
+.signup {
+    color: whitesmoke;
+    font-size: small;
+}
+
+.forgotpswd {
+    color: lightgray;
+    font-size: smaller;
+}
+
+form {
+    padding-bottom: 8%;
+}
+
+.submit-btn{
+    margin-top: 5%;
+    width: 100%;
+    background-color: #e91e63;
+    height: 50px;
+    color: white;
+}

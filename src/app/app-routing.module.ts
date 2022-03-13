@@ -5,12 +5,14 @@ import { ManageStockComponent } from './manage-stock/manage-stock.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 import { UpdateStockComponent } from './manage-stock/update-stock/update-stock.component';
+import { LoginComponent } from './authenticate/login/login.component';
 
 const routes: Routes = [
   { path: 'productsView', component: ProductViewComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'manage-stock', component: ManageStockComponent },
   { path: 'update-stock', component: UpdateStockComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'home', component: LandingComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },

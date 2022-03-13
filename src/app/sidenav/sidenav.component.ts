@@ -20,17 +20,17 @@ export class SidenavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private _router: Router) {}
+  constructor(private breakpointObserver: BreakpointObserver, private _router: Router) { }
 
   goProducts(value: string) {
-    this._router.navigate(
-      ['/products'],
-      { queryParams: { category: value } }
-    );
+    this._router.navigate(['/products'], { queryParams: { category: value } });
   }
 
   isMobile(): boolean {
     return window.screen.width < 600 ? true : false;
   }
 
+  userAccount() {
+    this._router.navigate(['/login']);
+  }
 }

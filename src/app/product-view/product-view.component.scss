@@ -122,11 +122,40 @@
   border: 2px solid #e91e63;
 }
 
-@media only screen and (min-width: 600px) {
-  .image-view > img {
-    max-width: 50vw;
-    max-height: 45vh;
+.image-view > img {
+  max-width: 50vw;
+  max-height: 45vh;
+}
+
+@media only screen and (min-width: 900px) {
+  .tittle {
+    font-family: Antique Olive,sans-serif;
+      font-style: normal;
+      font-size: x-large;
   }
+  /* Split the screen in half */
+.split {
+  margin: 0 5%;
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 15%;
+  font-family: Antique Olive,sans-serif;
+}
+
+/* Control the left side */
+.left {
+  left: 8%;
+}
+
+/* Control the right side */
+.right {
+  max-width: 35%;
+  right: 5%;
+}
 }
 
 .plusMinus {
@@ -140,3 +169,4 @@
   margin-bottom: 3%;
   height: 40px;
 }
+

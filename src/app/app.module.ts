@@ -26,6 +26,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { UpdateStockComponent } from './manage-stock/update-stock/update-stock.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { DeleteDialogComponent } from './manage-stock/delete-dialog/delete-dialog.component';
+import { LoginComponent } from './authenticate/login/login.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { DeleteDialogComponent } from './manage-stock/delete-dialog/delete-dialo
     ProductsComponent,
     UpdateStockComponent,
     ProductCardComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

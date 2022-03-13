@@ -32,3 +32,8 @@ mat-toolbar > img {
   width: 130px;
   margin: auto;
 }
+
+mat-toolbar > mat-icon {
+  padding-left: 3%;
+  cursor: pointer;
+}

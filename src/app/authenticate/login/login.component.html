@@ -1,0 +1,30 @@
+<div class="margin">
+    <h2 class="tittle">Login</h2>
+    <form [formGroup]="loginForm" *ngIf="loginEnable">
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter user name" formControlName="userName" id="userName">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+        <div class="errors" *ngIf="form.userName.touched && form.userName.invalid && form.userName.errors">
+            <div *ngIf="form.userName.errors.required">UserName Required</div>
+        </div>
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <div class="errors" *ngIf="form.password.touched && form.password.invalid && form.password.errors">
+            <div *ngIf="form.password.errors.required">Password Required</div>
+        </div>
+        <button mat-raised-button class="submit-btn" [disabled]="!loginForm.valid"
+            (click)="login()">Login</button>
+        <!-- <div class="login-footer">
+            <mat-label class="signup">New Customer?<span> Create a New Account</span></mat-label>
+            <mat-label class="forgotpswd">Forgot Password?</mat-label>
+        </div> -->
+    </form>
+</div>
