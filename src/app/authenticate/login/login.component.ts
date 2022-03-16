@@ -14,9 +14,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   public subscription: Subscription;
   public hide = true;
   public loginEnable: boolean = true;
+  public invalidPswd: boolean;
   public loginForm: FormGroup = this.fb.group({
     userName: ['', Validators.required],
     password: ['', Validators.required],
+  });
+  public registerForm: FormGroup = this.fb.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    userName: ['', [Validators.required, Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$')]],
+    password: ['', Validators.required],
+    repassword: ['', Validators.required]
   });
   constructor(private fb: FormBuilder, private _authService: AuthService, private _router: Router) { }
 
@@ -25,6 +33,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   get form() {
     return this.loginForm.controls;
+  }
+
+  get regform() {
+    return this.registerForm.controls;
+  }
+
+  passwordCheck() {
+    this.invalidPswd = false;
   }
 
   login(): void {
@@ -37,6 +53,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         console.log('response')
       }
     )
+  }
+
+  register(): void {
+
+  }
+
+  createAcc(): void {
+    this.loginEnable = false;
   }
 
   ngOnDestroy() {

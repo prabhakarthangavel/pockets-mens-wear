@@ -28,7 +28,7 @@ export class UpdateStockComponent implements OnInit, OnDestroy {
             } else if (response.body[i].imageUrl) {
               urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + response.body[i].imageUrl + '?alt=media');
             } else {
-              urls.push('../../assets/image_not_available.jpg')
+              urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/assets%2Fimage_not_available.jpg?alt=media')
             }
             const product = {
               id: response.body[i].id,

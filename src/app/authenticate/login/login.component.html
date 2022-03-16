@@ -20,11 +20,54 @@
         <div class="errors" *ngIf="form.password.touched && form.password.invalid && form.password.errors">
             <div *ngIf="form.password.errors.required">Password Required</div>
         </div>
-        <button mat-raised-button class="submit-btn" [disabled]="!loginForm.valid"
-            (click)="login()">Login</button>
+        <button mat-raised-button class="submit-btn" [disabled]="!loginForm.valid" (click)="login()">Login</button>
+            <div class="account"><span style="color: black;">New Customer?</span>&nbsp;
+            <span (click)="createAcc()">Create a New Account</span></div>
+            <div class="account">Forgot Password</div>
+    </form>
+
+    <form [formGroup]="registerForm" *ngIf="!loginEnable">
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Enter user name" formControlName="userName" id="userName">
+        </mat-form-field>
+        <div class="errors" *ngIf="regform.userName.touched && regform.userName.invalid && regform.userName.errors">
+            <div *ngIf="regform.userName.errors.required">UserName Required</div>
+            <div *ngIf="regform.userName.errors.pattern">Email Not Valid</div>
+        </div>
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="Enter first name" formControlName="firstName" id="firstName">
+        </mat-form-field>
+        <div class="errors" *ngIf="regform.firstName.touched && regform.firstName.invalid && regform.firstName.errors">
+            <div *ngIf="regform.firstName.errors.required">FirstName Required</div>
+        </div>
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Enter last name" formControlName="lastName" id="lastName">
+        </mat-form-field>
+        <div class="errors" *ngIf="regform.lastName.touched && regform.lastName.invalid && regform.lastName.errors">
+            <div *ngIf="regform.lastName.errors.required">LastName Required</div>
+        </div>
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" (keypress)="passwordCheck()">
+        </mat-form-field>
+        <div class="errors" *ngIf="regform.password.touched && regform.password.invalid && regform.password.errors">
+            <div *ngIf="regform.password.errors.required">Password Required</div>
+        </div>
+        <mat-form-field class="form-field" appearance="outline">
+            <mat-label>Re-Password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="repassword" (keypress)="passwordCheck()">
+        </mat-form-field>
+        <div class="errors" *ngIf="regform.repassword.touched && regform.repassword.invalid && regform.repassword.errors">
+            <div *ngIf="regform.repassword.errors.required">Re-Password Required</div>
+        </div>
+        <div class="errors" *ngIf="invalidPswd">Password & Re-Password Not Matching</div>
+        <button mat-raised-button class="submit-btn" [disabled]="!registerForm.valid"
+            (click)="register()">Register</button>
         <!-- <div class="login-footer">
-            <mat-label class="signup">New Customer?<span> Create a New Account</span></mat-label>
-            <mat-label class="forgotpswd">Forgot Password?</mat-label>
+            <mat-label class="signup" (click)="loginEnable = true">BACK TO LOGIN</mat-label>
         </div> -->
     </form>
 </div>

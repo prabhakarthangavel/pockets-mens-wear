@@ -14,7 +14,7 @@
     <div *ngFor="let file of fileStatus;let i = index" class="upload-file">
       <mat-icon class="icon" *ngIf="file.percentage == 100" (click)="deleteFile(file.file, i)">delete</mat-icon>
       <label>{{file.file.name}}</label>
-      <span *ngIf="file.percentage == 100"><img src="../../assets/green_tick.png"></span>
+      <span *ngIf="file.percentage == 100"><img src="https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/assets%2Fgreen_tick.png?alt=media"></span>
     </div>
   </div>
 

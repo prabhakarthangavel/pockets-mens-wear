@@ -9,18 +9,14 @@
     }
 }
 
-input {
-    color: whitesmoke;
-}
-
-.login-footer {
-    display: flex;
-    justify-content: space-between;
-    margin: 10% 10% 0 10%;
+.account {
+    text-align: center;
+    margin: 5% 0;
+    font-size: medium;
+    color: #e91e63;
 }
 
 .signup {
-    color: whitesmoke;
     font-size: small;
 }
 
