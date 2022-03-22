@@ -27,6 +27,7 @@ import { UpdateStockComponent } from './manage-stock/update-stock/update-stock.c
 import { ProductCardComponent } from './product-card/product-card.component';
 import { DeleteDialogComponent } from './manage-stock/delete-dialog/delete-dialog.component';
 import { LoginComponent } from './authenticate/login/login.component';
+import { InfoFooterComponent } from './shared/info-footer/info-footer.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { LoginComponent } from './authenticate/login/login.component';
     UpdateStockComponent,
     ProductCardComponent,
     DeleteDialogComponent,
-    LoginComponent
+    LoginComponent,
+    InfoFooterComponent
   ],
   imports: [
     BrowserModule,

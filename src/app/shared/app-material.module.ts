@@ -22,7 +22,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule,
     MatIconModule,

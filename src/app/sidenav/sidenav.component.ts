@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { AuthService } from '../authenticate/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -20,7 +21,7 @@ export class SidenavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private _router: Router) { }
+  constructor(private breakpointObserver: BreakpointObserver, private _router: Router, public _authService: AuthService) { }
 
   goProducts(value: string) {
     this._router.navigate(['/products'], { queryParams: { category: value } });
@@ -32,5 +33,10 @@ export class SidenavComponent {
 
   userAccount() {
     this._router.navigate(['/login']);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    location.reload();
   }
 }

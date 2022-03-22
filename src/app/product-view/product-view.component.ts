@@ -18,6 +18,7 @@ export class ProductViewComponent implements OnInit {
   public spinner: boolean = true;
   public selectedSize: string;
   public count: number = 1;
+  public outOfStock: boolean;
   constructor(private route: ActivatedRoute, private _productService: ProductsService) { }
 
   ngOnInit(): void {
@@ -57,16 +58,22 @@ export class ProductViewComponent implements OnInit {
   }
 
   chipClicked(size: string) {
+    this.outOfStock = false;
     this.selectedSize = size;
     this.count = 1;
   }
 
   plusMins(value: string) {
+    this.outOfStock = false;
     console.log(this.selectedSize)
     let count = this.selectedSize == 'small' ? this.product.size.small : this.selectedSize == 'medium' ? this.product.size.medium :
       this.selectedSize == 'xlarge' ? this.product.size.xlarge : this.selectedSize == 'xxlarge' ? this.product.size.xxlarge : 0;
-    if (value == 'add' && this.count < count) {
-      this.count++;
+    if (value == 'add') {
+      if (this.count < count) {
+        this.count++;
+      }else {
+        this.outOfStock = true;
+      }
     } else if (value == 'minus' && this.count > 0) {
       this.count--;
     }

@@ -4,6 +4,8 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '../../models/login.model';
 import { Subscription } from 'rxjs';
+import { Register } from '../../models/register.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     password: ['', Validators.required],
     repassword: ['', Validators.required]
   });
-  constructor(private fb: FormBuilder, private _authService: AuthService, private _router: Router) { }
+  constructor(private fb: FormBuilder, public  _authService: AuthService, private _router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -45,22 +47,42 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login(): void {
     const login: Login = {
-        userName: this.loginForm.value.userName,
-        password: this.loginForm.value.password
+      userName: this.loginForm.value.userName,
+      password: this.loginForm.value.password
     }
     this.subscription = this._authService.loginUser(login).subscribe(
       response => {
-        console.log('response')
+        if (response && response.status == 200) {
+          localStorage.setItem('token', response.body.status);
+          this._router.navigate(['/home']);
+        }
       }
     )
   }
 
   register(): void {
-
-  }
-
-  createAcc(): void {
-    this.loginEnable = false;
+    if (this.registerForm.controls.password.value != this.registerForm.controls.repassword.value) {
+      this.invalidPswd = true;
+    } else {
+      this.invalidPswd = false;
+      const register: Register = {
+        username: this.registerForm.controls.userName.value,
+        firstname: this.registerForm.controls.firstName.value,
+        lastname: this.registerForm.controls.lastName.value,
+        password: this.registerForm.controls.password.value
+      }
+      this._authService.registerUser(register).subscribe(
+        response => {
+          if (response && response.status == 200) {
+            this._snackBar.open(response.body.status + " Login Now.", "Close", {
+              duration: 5000,
+              verticalPosition: 'top'
+            });
+            this.loginEnable = true;
+          }
+        }
+      )
+    }
   }
 
   ngOnDestroy() {

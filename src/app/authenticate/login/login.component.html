@@ -1,4 +1,4 @@
-<div class="margin">
+<div class="margin" *ngIf="!_authService.isAuthenticated()">
     <h2 class="tittle">Login</h2>
     <form [formGroup]="loginForm" *ngIf="loginEnable">
         <mat-form-field class="form-field" appearance="outline">
@@ -21,9 +21,10 @@
             <div *ngIf="form.password.errors.required">Password Required</div>
         </div>
         <button mat-raised-button class="submit-btn" [disabled]="!loginForm.valid" (click)="login()">Login</button>
-            <div class="account"><span style="color: black;">New Customer?</span>&nbsp;
-            <span (click)="createAcc()">Create a New Account</span></div>
-            <div class="account">Forgot Password</div>
+        <div class="account"><span style="color: black;">New Customer?</span>&nbsp;
+            <span (click)="this.loginEnable =! this.loginEnable">Create a New Account</span>
+        </div>
+        <div class="account">Forgot Password</div>
     </form>
 
     <form [formGroup]="registerForm" *ngIf="!loginEnable">
@@ -58,16 +59,20 @@
         </div>
         <mat-form-field class="form-field" appearance="outline">
             <mat-label>Re-Password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="repassword" (keypress)="passwordCheck()">
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="repassword"
+                (keypress)="passwordCheck()">
         </mat-form-field>
-        <div class="errors" *ngIf="regform.repassword.touched && regform.repassword.invalid && regform.repassword.errors">
+        <div class="errors"
+            *ngIf="regform.repassword.touched && regform.repassword.invalid && regform.repassword.errors">
             <div *ngIf="regform.repassword.errors.required">Re-Password Required</div>
         </div>
         <div class="errors" *ngIf="invalidPswd">Password & Re-Password Not Matching</div>
         <button mat-raised-button class="submit-btn" [disabled]="!registerForm.valid"
             (click)="register()">Register</button>
-        <!-- <div class="login-footer">
-            <mat-label class="signup" (click)="loginEnable = true">BACK TO LOGIN</mat-label>
-        </div> -->
+        <div class="account" (click)="this.loginEnable =! this.loginEnable">Back to Login</div>
     </form>
+</div>
+
+<div class="maring" *ngIf="_authService.isAuthenticated()">
+    Logged in user: {{_authService.getLoggedInUser()}}
 </div>

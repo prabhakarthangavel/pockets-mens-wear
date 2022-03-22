@@ -39,6 +39,7 @@
           [selected]="selectedSize == 'xxlarge'">xx Large</mat-chip>
       </mat-chip-list>
     </div>
+    <div *ngIf="outOfStock" class="outOfStock">Out Of Stock</div>
 
     <div class="plusMinus">
       <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
@@ -49,9 +50,9 @@
     </div>
 
     <button mat-raised-button class="buyIt">ADD TO CART</button>
-    <button mat-raised-button color="primary" class="buyIt">BUY IT NOW</button>
+    <button mat-raised-button color="primary" class="buyIt">BUY NOW</button>
 
-    <div>
+    <div style="display: flex;">
       <h3>{{product.description}}</h3>
     </div>
   </div>
