@@ -16,7 +16,7 @@ export class Interceptor implements HttpInterceptor {
         }
         const authReq = req.clone({ headers: newHeaders });
         this._authService.spinnerState(true);
-        return next.handle(req).pipe(tap(response => {
+        return next.handle(authReq).pipe(tap(response => {
             if (response instanceof HttpResponse) {
                 this._authService.spinnerState(false);
             }

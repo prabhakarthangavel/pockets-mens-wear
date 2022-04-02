@@ -65,7 +65,6 @@ export class ProductViewComponent implements OnInit {
 
   plusMins(value: string) {
     this.outOfStock = false;
-    console.log(this.selectedSize)
     let count = this.selectedSize == 'small' ? this.product.size.small : this.selectedSize == 'medium' ? this.product.size.medium :
       this.selectedSize == 'xlarge' ? this.product.size.xlarge : this.selectedSize == 'xxlarge' ? this.product.size.xxlarge : 0;
     if (value == 'add') {
@@ -77,6 +76,20 @@ export class ProductViewComponent implements OnInit {
     } else if (value == 'minus' && this.count > 0) {
       this.count--;
     }
+  }
+
+  addToCart() {
+    const cart = {
+      productid: this.productId,
+      quantity: this.count,
+      size: this.selectedSize
+    }
+    this.subscription = this._productService.addToCart(cart).subscribe(
+      response => { 
+        if (response && response.status == 200) {
+          console.log("cart ADDED",response)
+        }
+      })
   }
 
   ngOnDestroy() {

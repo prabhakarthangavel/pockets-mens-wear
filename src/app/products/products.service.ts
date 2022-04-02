@@ -9,7 +9,8 @@ import { environment } from '../../environments/environment';
 export class ProductsService {
   private getProductsUrl: string = 'products/fetchProduct/';
   private getProductDetailUrl: string = 'products/productDetail/';
-  private getTopDealsUrl: string = 'products/topDeals'
+  private getTopDealsUrl: string = 'products/topDeals';
+  private addToCartUrl: string = 'products/addCart';
   constructor(private _http: HttpClient) { }
 
   getProducts(value: string): Observable<any> {
@@ -22,5 +23,9 @@ export class ProductsService {
 
   getTopDeals(): Observable<any> {
     return this._http.get(environment.baseUrl + this.getTopDealsUrl, { observe: 'response' });
+  }
+
+  addToCart(cart: any): Observable<any> {
+    return this._http.post(environment.baseUrl, cart, { observe: 'response' });
   }
 }
