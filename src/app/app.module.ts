@@ -28,6 +28,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { DeleteDialogComponent } from './manage-stock/delete-dialog/delete-dialog.component';
 import { LoginComponent } from './authenticate/login/login.component';
 import { InfoFooterComponent } from './shared/info-footer/info-footer.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { InfoFooterComponent } from './shared/info-footer/info-footer.component'
     ProductCardComponent,
     DeleteDialogComponent,
     LoginComponent,
-    InfoFooterComponent
+    InfoFooterComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ export class ProductViewComponent implements OnInit {
   public selectedSize: string;
   public count: number = 1;
   public outOfStock: boolean;
+  public isGoToCart: boolean;
   constructor(private route: ActivatedRoute, private _productService: ProductsService) { }
 
   ngOnInit(): void {
@@ -51,6 +52,17 @@ export class ProductViewComponent implements OnInit {
             }
           });
       });
+      this._productService.fetchCart().subscribe(
+        response => {
+            if (response && response.status == 200) {
+              for (let i=0;i<response.body.length;i++) {
+                if (this.productId == response.body[i].productid) {
+                  this.isGoToCart = true;
+                  break;
+                }
+              }
+            }
+        });
   }
 
   imageSelected(imgUrl: string) {
@@ -87,9 +99,14 @@ export class ProductViewComponent implements OnInit {
     this.subscription = this._productService.addToCart(cart).subscribe(
       response => { 
         if (response && response.status == 200) {
-          console.log("cart ADDED",response)
+          this.isGoToCart = true;
+          this._productService.fetchCartPromise();
         }
       })
+  }
+
+  isMobile(): boolean {
+    return window.screen.width < 600 ? true : false;
   }
 
   ngOnDestroy() {

@@ -38,7 +38,7 @@ export class AuthService {
     if (token != null) {
       const decoded = helper.decodeToken(token);
       if (decoded!) {
-        this.setLoggedInUser(decoded.fullname);
+        this.setLoggedInUser(decoded.sub);
         this.setRole(decoded.role[0].authority);
         return true;
       }

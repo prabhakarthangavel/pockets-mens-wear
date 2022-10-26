@@ -14,3 +14,14 @@ export interface Product {
         xxlarge: number
     }
 }
+
+export interface Cart {
+    productId: number,
+    actualPrice: number,
+    category: string,
+    discountedPrice: number,
+    imageUrl: any,
+    name: string,
+    quantity: number,
+    size: string
+}

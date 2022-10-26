@@ -34,7 +34,8 @@
       <!-- <span routerLink="/home">Pockets Mens Wear</span> -->
       <img src="https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/assets%2Flogo.png?alt=media" routerLink="/home">
       <mat-icon (click)="userAccount()">account_circle</mat-icon>
-      <mat-icon>shopping_cart</mat-icon>
+      <mat-icon (click)="goToCart()">shopping_cart</mat-icon>
+      <label class="cartCount">{{cartCount}}</label>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

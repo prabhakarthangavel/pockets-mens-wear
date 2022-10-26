@@ -1,0 +1,50 @@
+.flexbox-container {
+    display: flex;
+}
+
+.flexbox-common-item {
+    
+}
+
+.flex-item1 {
+    width: 100px;
+    margin: 3% 0 0 3%;
+}
+
+.flex-item2 {
+    width: 75vw;
+    margin: 2% 2% 2% 0;
+}
+
+.quantity {
+    border: 1px solid black;
+}
+
+.cart-card {
+    background-color: white;
+    margin: 10px 5px 10px 5px;
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+}
+
+.title {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    width: 285.2px;
+    font-weight: 550;
+}
+
+.size {
+    font-weight: 400;
+    font-size: 12px;
+
+    span {
+        font-weight: 350;
+    }
+}
+
+.delete {
+    width: -webkit-fill-available;
+    margin: 0% 5% 3% 5%;
+    height: 40px;
+    box-shadow: none;
+}
