@@ -11,14 +11,12 @@ import { Product } from '../../models/product.model';
 export class UpdateStockComponent implements OnInit, OnDestroy {
   public subscription: Subscription;
   public productList: Product[] = [];
-  public spinner: boolean = true;
   constructor(private _stockService: ManageStockService) { }
 
   ngOnInit(): void {
     this.subscription = this._stockService.fetchStock().subscribe(
       response => {
         if (response && response.status == 200) {
-          this.spinner = false;
           for (let i = 0; i < response.body.length; i++) {
             let urls: string[] = [];
             if (response.body[i].imageUrl && response.body[i].imageUrl.indexOf(',') > 0) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from './authenticate/auth.service';
 
 @Component({
@@ -9,5 +9,9 @@ import { AuthService } from './authenticate/auth.service';
 export class AppComponent {
   title = 'pockets-mens-wear';
 
-  constructor(public _authService: AuthService) {}
+  constructor(public _authService: AuthService, private cdref: ChangeDetectorRef) { }
+
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
+  }
 }

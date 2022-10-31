@@ -1,6 +1,6 @@
 <div *ngFor="let product of cartItems">
-  <div class="cart-card" (click)="cardClicked(product)">
-    <div class="flexbox-container">
+  <div class="cart-card">
+    <div class="flexbox-container" (click)="cardClicked(product)">
       <div class="flexbox-common-item flex-item1">
         <img [src]="product.imageUrl" height="72px" width="72px">
         <!-- <label class="mat-card quantity">Quantity 1</label> -->
@@ -15,6 +15,6 @@
         </div>
       </div>
     </div>
-    <button mat-raised-button class="delete" (click)="delete()"><mat-icon>delete</mat-icon>Delete</button>
+    <button mat-raised-button class="delete" (click)="delete(product)"><mat-icon>delete</mat-icon>Delete</button>
   </div>
 </div>

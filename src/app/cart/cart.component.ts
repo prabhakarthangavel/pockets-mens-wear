@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 })
 export class CartComponent implements OnInit {
   public cartItems: Cart[] = [];
+  public totalItems: number = 0;
   constructor(private _productService: ProductsService, private _router: Router) {}
 
   ngOnInit(): void {
     this._productService.fetchCartDetail().subscribe(
       response => {
-        console.log(response)
         if (response && response.status == 200) {
           response.body.forEach((item: Cart) => {
             let url = '';
@@ -35,6 +35,7 @@ export class CartComponent implements OnInit {
               quantity: item.quantity,
               size: item.size
             }
+            this.totalItems++;
             this.cartItems.push(cart);
           });
         }
@@ -46,6 +47,15 @@ export class CartComponent implements OnInit {
     this._router.navigateByUrl('/productsView?productId=' + product.productId);
   }
 
-  delete() { }
+  delete(product: Cart) { 
+    this._productService.deleteCartProduct(product.productId).subscribe(
+      response => {
+        if (response && response.status == 200) {
+          this._productService.subject$.next(--this.totalItems);
+          this.cartItems = this.cartItems.filter(items => items.productId != product.productId);
+        }
+      }
+    );
+  }
 
 }

@@ -13,6 +13,7 @@ export class ProductsService {
   private addToCartUrl: string = 'products/addCart';
   private fetchCartUrl: string = 'products/fetchCart';
   private fetchCartDetailUrl: string = 'products/fetchCartDetail';
+  private deleteCartItem: string = 'products/removeCartItem';
   public subject$ = new Subject();
   constructor(private _http: HttpClient) { }
 
@@ -33,7 +34,7 @@ export class ProductsService {
   }
 
   fetchCart(): Observable<any> {
-    return this._http.get(environment.baseUrl + this.fetchCartUrl, { observe: 'response'});
+    return this._http.get(environment.baseUrl + this.fetchCartUrl, { observe: 'response' });
   }
 
   fetchCartPromise(): void {
@@ -46,6 +47,10 @@ export class ProductsService {
   }
 
   fetchCartDetail(): Observable<any> {
-    return this._http.get(environment.baseUrl + this.fetchCartDetailUrl, { observe: 'response'});
+    return this._http.get(environment.baseUrl + this.fetchCartDetailUrl, { observe: 'response' });
+  }
+
+  deleteCartProduct(productId: number): Observable<any> {
+    return this._http.delete(environment.baseUrl + this.deleteCartItem, { params: { productId: productId }, observe: 'response' });
   }
 }

@@ -15,7 +15,6 @@ export class ProductsComponent implements OnInit {
   public category: string;
   public subscription: Subscription;
   public productList: Product[] = [];
-  public spinner: boolean = true;
   constructor(private route: ActivatedRoute, private _productsService: ProductsService, public _uploadService: FileUploadService,
     public _authService: AuthService) { }
 
@@ -27,7 +26,6 @@ export class ProductsComponent implements OnInit {
         this.subscription = this._productsService.getProducts(this.category).subscribe(
           response => {
             if (response && response.status == 200) {
-              this.spinner = false;
               for (let i = 0; i < response.body.length; i++) {
                 console.log(response)
                 let urls: string[] = [];

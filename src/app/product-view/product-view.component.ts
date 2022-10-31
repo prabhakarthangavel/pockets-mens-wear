@@ -15,7 +15,6 @@ export class ProductViewComponent implements OnInit {
   public product: Product;
   public subscription: Subscription;
   public selectedImgUrl: string;
-  public spinner: boolean = true;
   public selectedSize: string;
   public count: number = 1;
   public outOfStock: boolean;
@@ -30,7 +29,6 @@ export class ProductViewComponent implements OnInit {
         this.subscription = this._productService.getProductDetail(this.productId).subscribe(
           response => {
             if (response && response.status == 200) {
-              this.spinner = false;
               let urls: string[] = [];
               response.body.imageUrl.split(',').forEach((img: string) => {
                 urls.push('https://firebasestorage.googleapis.com/v0/b/pockets-mens-wear.appspot.com/o/uploads%2F' + img + '?alt=media');
