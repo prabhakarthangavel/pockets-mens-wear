@@ -38,7 +38,6 @@ export class ProductsService {
   }
 
   fetchCartPromise(): void {
-    // const params = new HttpParams().set('username', username);
     this._http.get<any>(environment.baseUrl + this.fetchCartUrl).toPromise().then(response => {
       let number = response.length;
       this.subject$.next(number);

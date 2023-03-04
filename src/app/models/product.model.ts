@@ -25,3 +25,10 @@ export interface Cart {
     quantity: number,
     size: string
 }
+
+
+export interface CartItems {
+    productid?: number;
+    quantity?: number;
+    size?: string;
+}

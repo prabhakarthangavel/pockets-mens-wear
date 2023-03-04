@@ -2,9 +2,7 @@
     display: flex;
 }
 
-.flexbox-common-item {
-    
-}
+.flexbox-common-item {}
 
 .flex-item1 {
     width: 100px;
@@ -31,6 +29,7 @@
     font-size: 16px;
     width: 285.2px;
     font-weight: 550;
+    margin: 2% 0;
 }
 
 .size {
@@ -48,3 +47,42 @@
     height: 40px;
     box-shadow: none;
 }
+
+.priceInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3% 0;
+}
+
+.priceMargin {
+    margin: 0 3%; 
+}
+
+.totalAmountMargin {
+    margin: 3%;
+}
+
+.priceBorder {
+    border-top: 0.1rem solid lightgray;
+}
+
+.padding-btm {
+    padding-bottom: 1%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .fullWidth {
+    min-width: 50%;
+    min-height: 50px;
+  }
+  
+  .none{
+    color: black;
+    background: whitesmoke;
+  }

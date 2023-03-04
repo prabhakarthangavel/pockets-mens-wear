@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../authenticate/auth.service';
 import { ProductsService } from '../products/products.service';
@@ -25,7 +26,7 @@ export class SidenavComponent {
 
   constructor(private breakpointObserver: BreakpointObserver, private _router: Router, public _authService: AuthService, private _productService: ProductsService) { 
     this._productService.fetchCartPromise();
-    this._productService.subject$.subscribe(cartValue => this.cartCount = cartValue)
+    this.cartCount = this._productService.subject$;
   }
 
   goProducts(value: string) {

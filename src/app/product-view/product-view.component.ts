@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../models/product.model';
+import { CartItems, Product } from '../models/product.model';
 import { Subscription } from 'rxjs';
 import { ProductsService } from '../products/products.service';
+import { AuthService } from '../authenticate/auth.service';
 // declare var carousel: any;
 
 @Component({
@@ -19,7 +20,7 @@ export class ProductViewComponent implements OnInit {
   public count: number = 1;
   public outOfStock: boolean;
   public isGoToCart: boolean;
-  constructor(private route: ActivatedRoute, private _productService: ProductsService) { }
+  constructor(private route: ActivatedRoute, private _productService: ProductsService, private _authService: AuthService) { }
 
   ngOnInit(): void {
     // new carousel();
@@ -89,18 +90,30 @@ export class ProductViewComponent implements OnInit {
   }
 
   addToCart() {
-    const cart = {
+    const cart: CartItems = {
       productid: this.productId,
       quantity: this.count,
       size: this.selectedSize
     }
-    this.subscription = this._productService.addToCart(cart).subscribe(
-      response => { 
-        if (response && response.status == 200) {
-          this.isGoToCart = true;
-          this._productService.fetchCartPromise();
-        }
-      })
+    if (this._authService.isAuthenticated()) {
+      this.subscription = this._productService.addToCart(cart).subscribe(
+        response => { 
+          if (response && response.status == 200) {
+            this.isGoToCart = true;
+            this._productService.fetchCartPromise();
+          }
+        })
+    }else {
+      const cartItems: CartItems[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      if (cartItems.length > 0) {
+        cartItems.push(cart);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      }else {
+        const items: CartItems[] = [];
+        items.push(cart);
+        localStorage.setItem('cartItems', JSON.stringify(items));
+      }
+    }
   }
 
   isMobile(): boolean {

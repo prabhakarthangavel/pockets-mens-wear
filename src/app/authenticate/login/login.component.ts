@@ -6,6 +6,7 @@ import { Login } from '../../models/login.model';
 import { Subscription } from 'rxjs';
 import { Register } from '../../models/register.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProductsService } from 'src/app/products/products.service';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     password: ['', Validators.required],
     repassword: ['', Validators.required]
   });
-  constructor(private fb: FormBuilder, public  _authService: AuthService, private _router: Router, private _snackBar: MatSnackBar) { }
+  constructor(private fb: FormBuilder, public  _authService: AuthService, private _router: Router, private _snackBar: MatSnackBar, private _productService: ProductsService) { }
 
   ngOnInit(): void {
   }
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (response && response.status == 200) {
           localStorage.setItem('token', response.body.status);
           this._router.navigate(['/home']);
+          this._productService.fetchCartPromise();
         }
       }
     )

@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
   public cartItems: Cart[] = [];
   public totalItems: number = 0;
+  public totalDiscount: number = 0;
+  public totalPrice: number = 0;
+  public totalAmount: number = 0;
   constructor(private _productService: ProductsService, private _router: Router) {}
 
   ngOnInit(): void {
@@ -35,6 +38,9 @@ export class CartComponent implements OnInit {
               quantity: item.quantity,
               size: item.size
             }
+            this.totalPrice += item.actualPrice;
+            this.totalAmount += item.actualPrice - (item.actualPrice - item.discountedPrice);
+            this.totalDiscount += (item.actualPrice - item.discountedPrice);
             this.totalItems++;
             this.cartItems.push(cart);
           });

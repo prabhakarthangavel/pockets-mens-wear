@@ -1,4 +1,4 @@
-<div class="content margin" *ngIf="!spinner">
+<div class="content margin">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
         <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let product of productList">
             <app-product-card [product]="product" [enableEdit]="true" (reload)="reload($event)"></app-product-card>

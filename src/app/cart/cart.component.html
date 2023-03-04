@@ -9,12 +9,43 @@
         <label class="title">{{product.name}}</label>
         <div class="size">Size:<span>{{product.size}}</span></div>
         <div>
-          <span [ngStyle]="{'text-decoration' : product.discountedPrice > 0 ? 'line-through' : ''}">₹{{product.actualPrice}}</span>
-        <span *ngIf="product.discountedPrice > 0" style="padding-left:5px;">₹{{product.discountedPrice}}</span>
-        <span *ngIf="product.discountedPrice > 0" style="padding-left:5px; color: green;">{{(100 * (product.actualPrice - product.discountedPrice) / product.actualPrice) | number: '1.0-0'}}% off</span>
+          <span [ngStyle]="{'text-decoration' : product.discountedPrice > 0 ? 'line-through' : ''}">{{product.actualPrice | currency:'INR':'symbol-narrow':'1.2'}}</span>
+        <span *ngIf="product.discountedPrice > 0" style="padding-left:5px;">{{product.discountedPrice | currency:'INR':'symbol-narrow':'1.2'}}</span>
+        <span *ngIf="product.discountedPrice > 0" style="padding-left:5px; color: rgb(0, 140, 0);">{{(100 * (product.actualPrice - product.discountedPrice) / product.actualPrice) | number: '1.0-0'}}% off</span>
         </div>
       </div>
     </div>
     <button mat-raised-button class="delete" (click)="delete(product)"><mat-icon>delete</mat-icon>Delete</button>
   </div>
+</div>
+
+<div class="cart-card">
+  <div class="priceMargin">
+    <label class="title">Price Details</label>
+    <div class="priceInfo">
+      <span>Price ({{totalItems}} items)</span><span>{{totalPrice | currency:'INR':'symbol-narrow':'1.2'}}</span> 
+    </div>
+    <div class="priceInfo">
+      <span>Discount</span><span *ngIf="totalDiscount > 0" style="padding-left:5px; color: rgb(0, 140, 0);">-{{totalDiscount | currency:'INR':'symbol-narrow':'1.2'}}</span> 
+    </div>
+  </div>
+    
+  <div class="priceBorder">
+    <div class="priceInfo totalAmountMargin">
+      <span>Total Amount</span><span>{{totalAmount | currency:'INR':'symbol-narrow':'1.2'}}</span> 
+    </div>
+  </div>
+
+  <div class="priceBorder padding-btm">
+    <div class="priceInfo totalAmountMargin"> 
+      <span style="color: rgb(0, 140, 0);">You will save {{totalDiscount | currency:'INR'}} on this order</span>
+    </div>
+  </div>
+     
+</div>
+
+<div class="footer">
+  <button mat-flat-button class="none fullWidth" >cancel</button>
+  <button mat-flat-button color="primary" class="fullWidth" 
+      >submit</button>
 </div>
