@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CartItems, Product } from '../models/product.model';
+import { Cart, CartItems, Product } from '../models/product.model';
 import { Subscription } from 'rxjs';
 import { ProductsService } from '../products/products.service';
 import { AuthService } from '../authenticate/auth.service';
@@ -51,17 +51,27 @@ export class ProductViewComponent implements OnInit {
             }
           });
       });
+    if (this._authService.isAuthenticated()) {
       this._productService.fetchCart().subscribe(
         response => {
-            if (response && response.status == 200) {
-              for (let i=0;i<response.body.length;i++) {
-                if (this.productId == response.body[i].productid) {
-                  this.isGoToCart = true;
-                  break;
-                }
+          if (response && response.status == 200) {
+            for (let i = 0; i < response.body.length; i++) {
+              if (this.productId == response.body[i].productid) {
+                this.isGoToCart = true;
+                break;
               }
             }
+          }
         });
+    } else {
+      const cartItems: CartItems[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
+      for (let i = 0; i < cartItems.length; i++) {
+        if (cartItems[i].productid == this.productId) {
+          this.isGoToCart = true;
+          break;
+        }
+      }
+    }
   }
 
   imageSelected(imgUrl: string) {
@@ -81,7 +91,7 @@ export class ProductViewComponent implements OnInit {
     if (value == 'add') {
       if (this.count < count) {
         this.count++;
-      }else {
+      } else {
         this.outOfStock = true;
       }
     } else if (value == 'minus' && this.count > 0) {
@@ -90,29 +100,41 @@ export class ProductViewComponent implements OnInit {
   }
 
   addToCart() {
-    const cart: CartItems = {
-      productid: this.productId,
-      quantity: this.count,
-      size: this.selectedSize
-    }
     if (this._authService.isAuthenticated()) {
+      const cart: CartItems = {
+        productid: this.productId,
+        quantity: this.count,
+        size: this.selectedSize
+      }
       this.subscription = this._productService.addToCart(cart).subscribe(
-        response => { 
+        response => {
           if (response && response.status == 200) {
             this.isGoToCart = true;
             this._productService.fetchCartPromise();
           }
         })
-    }else {
+    } else {
+      const cart: Cart = {
+        productId: this.product.id,
+        actualPrice: this.product.actualPrice,
+        category: this.product.category,
+        discountedPrice: this.product.discountedPrice,
+        imageUrl: this.product.imageUrls[0],
+        name: this.product.name,
+        quantity: this.count,
+        size: this.selectedSize
+      }
       const cartItems: CartItems[] = JSON.parse(localStorage.getItem('cartItems') || '[]');
       if (cartItems.length > 0) {
         cartItems.push(cart);
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      }else {
+      } else {
         const items: CartItems[] = [];
         items.push(cart);
         localStorage.setItem('cartItems', JSON.stringify(items));
       }
+      this.isGoToCart = true;
+      this._productService.fetchCartPromise();
     }
   }
 

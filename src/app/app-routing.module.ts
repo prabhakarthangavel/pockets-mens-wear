@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'manage-stock', component: ManageStockComponent, canActivate: [AuthguardService] },
   { path: 'update-stock', component: UpdateStockComponent, canActivate: [AuthguardService] },
-  { path: 'cart', component: CartComponent, canActivate: [AuthguardService] },
+  { path: 'cart', component: CartComponent },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: LandingComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
